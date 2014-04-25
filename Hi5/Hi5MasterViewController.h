@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Hi5MasterViewController : UITableViewController
+@interface Hi5MasterViewController : UIViewController
 
 @end

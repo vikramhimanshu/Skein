@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2142F601907694B009F30D5 /* Hi5CardCell.m */; };
 		C27950CE1907140500D3D8AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CD1907140500D3D8AF /* Foundation.framework */; };
 		C27950D01907140500D3D8AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CF1907140500D3D8AF /* CoreGraphics.framework */; };
 		C27950D21907140500D3D8AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950D11907140500D3D8AF /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 		C27950F21907140500D3D8AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950D11907140500D3D8AF /* UIKit.framework */; };
 		C27950FA1907140500D3D8AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C27950F81907140500D3D8AF /* InfoPlist.strings */; };
 		C27950FC1907140500D3D8AF /* Hi5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C27950FB1907140500D3D8AF /* Hi5Tests.m */; };
+		C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C2142F5F1907694B009F30D5 /* Hi5CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CardCell.h; sourceTree = "<group>"; };
+		C2142F601907694B009F30D5 /* Hi5CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CardCell.m; sourceTree = "<group>"; };
 		C27950CA1907140500D3D8AF /* Hi5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hi5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27950CD1907140500D3D8AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C27950CF1907140500D3D8AF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,6 +60,8 @@
 		C27950F71907140500D3D8AF /* Hi5Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hi5Tests-Info.plist"; sourceTree = "<group>"; };
 		C27950F91907140500D3D8AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C27950FB1907140500D3D8AF /* Hi5Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hi5Tests.m; sourceTree = "<group>"; };
+		C2DDA2B3190A1433002156E5 /* Hi5CollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CollectionView.h; sourceTree = "<group>"; };
+		C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CollectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				C27950DC1907140500D3D8AF /* Hi5AppDelegate.h */,
+				C2DDA2B3190A1433002156E5 /* Hi5CollectionView.h */,
+				C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */,
 				C27950DD1907140500D3D8AF /* Hi5AppDelegate.m */,
 				C27950DF1907140500D3D8AF /* Main.storyboard */,
 				C27950E21907140500D3D8AF /* Hi5MasterViewController.h */,
@@ -124,6 +132,8 @@
 				C27950E61907140500D3D8AF /* Hi5DetailViewController.m */,
 				C27950E81907140500D3D8AF /* Images.xcassets */,
 				C27950D41907140500D3D8AF /* Supporting Files */,
+				C2142F5F1907694B009F30D5 /* Hi5CardCell.h */,
+				C2142F601907694B009F30D5 /* Hi5CardCell.m */,
 			);
 			path = Hi5;
 			sourceTree = "<group>";
@@ -255,7 +265,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27950E71907140500D3D8AF /* Hi5DetailViewController.m in Sources */,
+				C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */,
 				C27950E41907140500D3D8AF /* Hi5MasterViewController.m in Sources */,
+				C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */,
 				C27950DA1907140500D3D8AF /* main.m in Sources */,
 				C27950DE1907140500D3D8AF /* Hi5AppDelegate.m in Sources */,
 			);
@@ -385,6 +397,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hi5/Hi5-Prefix.pch";
 				INFOPLIST_FILE = "Hi5/Hi5-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -398,6 +411,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hi5/Hi5-Prefix.pch";
 				INFOPLIST_FILE = "Hi5/Hi5-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -462,6 +476,7 @@
 				C27951011907140500D3D8AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C27951021907140500D3D8AF /* Build configuration list for PBXNativeTarget "Hi5Tests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +485,7 @@
 				C27951041907140500D3D8AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
