@@ -10,7 +10,7 @@
 #import "Hi5CardCell.h"
 #import "Hi5DetailViewController.h"
 
-@interface Hi5MasterViewController ()<UICollectionViewDataSource, UICollectionViewDelegate> {
+@interface Hi5MasterViewController ()<UICollectionViewDataSource, UICollectionViewDelegate,Hi5CardCellDelegate> {
     NSMutableArray *_objects;
 }
 
@@ -74,9 +74,21 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Hi5CardCell *cell = (Hi5CardCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"card" forIndexPath:indexPath];
-    cell.name = [NSString stringWithFormat:@"Item: %d",indexPath.item];
+    cell.delegate = self;
+    cell.debugLabel.text = [NSString stringWithFormat:@"%lu",(long)[indexPath item]];
+    cell.name = [NSString stringWithFormat:@"Cell Number: %lu",(long)indexPath.item];
     cell.tag = indexPath.item;
     return cell;
+}
+
+-(void)didSwapCell:(Hi5CardCell *)sourceCell withCell:(Hi5CardCell *)targetCell atIndexPath:(NSIndexPath *)indexpath
+{
+    [self.boardView performBatchUpdates:^{
+        [self.boardView moveItemAtIndexPath:[self.boardView indexPathForCell:sourceCell]
+                                toIndexPath:indexpath];
+        [self.boardView moveItemAtIndexPath:indexpath
+                                toIndexPath:[self.boardView indexPathForCell:sourceCell]];
+    } completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

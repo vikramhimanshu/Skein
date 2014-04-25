@@ -7,6 +7,7 @@
 //
 
 #import "Hi5CardCell.h"
+#import "UILabel+nsobject.h"
 
 @interface Hi5CardCell ()
 
@@ -15,10 +16,24 @@
 @property (nonatomic,assign) CGRect originalFrame;
 @property (nonatomic,assign) BOOL canRelease;
 @property (nonatomic,strong) UIColor *originalBackgroundColor;
-
+@property (nonatomic,strong) Hi5CardCell *draggableView;
 @end
 
 @implementation Hi5CardCell
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    id copy = [[[self class] alloc] init];
+    if (copy) {
+        [copy setFrame:self.frame];
+        [copy setOriginalCenter:self.originalCenter];
+        [copy setOriginalFrame:self.originalFrame];
+        [copy setBackgroundColor:[UIColor redColor]];
+        [copy addSubview:[self.debugLabel copy]];
+        [copy awakeFromNib];
+    }
+    return copy;
+}
 
 -(void)dealloc
 {
@@ -27,9 +42,6 @@
 
 -(void)awakeFromNib
 {
-    self.type = 0;
-    self.rank = 0;
-    self.name = @"default";
     self.gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                      action:@selector(handlePanGesture:)];
     [self addGestureRecognizer:self.gestureRecognizer];
@@ -39,51 +51,62 @@
 
 -(void)handlePanGesture:(UIPanGestureRecognizer *)gesture
 {
-    __block NSIndexPath *ip2 = nil;
-    __block Hi5CardCell *targetCell = nil;
-    __block CGRect newFrame;
-
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
         self.originalFrame = self.frame;
-        [self setBackgroundColor:[UIColor redColor]];
-        [[self superview] bringSubviewToFront:self];
+        self.draggableView = [self copy];
+        [self.draggableView setAlpha:0.65];
+        [self.draggableView setTransform:CGAffineTransformMakeScale(1.1, 1.1)];
+        [[self superview] addSubview:self.draggableView];
+        [self.window bringSubviewToFront:self.draggableView];
+//        NSLog(@"\n\nDragged>>>\n\n");
+        [self logCellAtPoint:self.center];
+//        NSLog(@"\n\nDragged<<<\n\n");
     }
     
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self];
-        self.center = CGPointMake(_originalCenter.x + translation.x,
-                                  _originalCenter.y + translation.y);
-        
-        ip2 = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.center];
-        targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip2];
-        [targetCell setBackgroundColor:[UIColor greenColor]];
-        newFrame = [targetCell frame];
+//        NSLog(@"translation %@",NSStringFromCGPoint(translation));
+        self.draggableView.center = CGPointMake(_originalCenter.x + translation.x,
+                                                _originalCenter.y + translation.y);
     }
     
     else if (gesture.state == UIGestureRecognizerStateEnded)
     {
-        ip2 = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.center];
-        targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip2];
-        newFrame = [targetCell frame];
+        __block NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.draggableView.center];
+        __block Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
+        __block CGRect newFrame = [targetCell frame];
         _canRelease = (targetCell!=nil);
-        NSLog(@"\n\n\ndropped cell: %@ \nat point %@ \nindexPath %@\n\n",targetCell,NSStringFromCGPoint(self.center),ip2);
+//        NSLog(@"\n\nDropped>>>\n\n");
+        [self logCellAtPoint:self.draggableView.center];
+//        NSLog(@"\n\nDropped<<<\n\n");
         
         if (_canRelease) {
-            [UIView animateWithDuration:0.2 animations:^{
-                targetCell.frame = self.originalFrame;
-                self.frame = newFrame;
+            [self.draggableView removeFromSuperview];
+            [UIView animateWithDuration:0.4 animations:^{
+                [self.draggableView setAlpha:0.0];
+                [self.draggableView removeFromSuperview];
+//                targetCell.frame = self.originalFrame;
+//                self.frame = newFrame;
             } completion:^(BOOL finished) {
-                [self.delegate didSwapCell:self withCell:targetCell atIndexPath:ip2];
+                [self.delegate didSwapCell:self withCell:targetCell atIndexPath:ip];
             }];
         }
         else
         {
             [UIView animateWithDuration:0.2 animations:^{
-                self.frame = self.originalFrame;
+                self.draggableView.frame = self.originalFrame;
+                [self.draggableView removeFromSuperview];
             }];
         }
     }
+}
+
+- (void)logCellAtPoint:(CGPoint)p
+{
+    NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:p];
+    Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
+//    NSLog(@"\n\n\ncell: %@ \natPoint: %@ \nwithIndexPath: %d\n\n",targetCell.debugLabel.text,NSStringFromCGPoint(self.draggableView.center),ip.item);
 }
 
 @end

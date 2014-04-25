@@ -17,7 +17,7 @@
 @property (nonatomic, assign) NSUInteger type;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, weak)   IBOutlet UIImageView *image;
-
+@property (nonatomic, weak)   IBOutlet UILabel *debugLabel;
 @end
 
 @protocol Hi5CardCellDelegate <NSObject>
