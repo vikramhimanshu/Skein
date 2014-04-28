@@ -14,14 +14,17 @@
 
 @property (nonatomic, weak) id<Hi5CardCellDelegate> delegate;
 @property (nonatomic, assign) NSUInteger rank;
-@property (nonatomic, assign) NSUInteger type;
+@property (nonatomic, assign) NSUInteger cardType;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, weak)   IBOutlet UIImageView *image;
+@property (nonatomic, weak)   IBOutlet UIImageView *imageView;
 @property (nonatomic, weak)   IBOutlet UILabel *debugLabel;
 @end
 
 @protocol Hi5CardCellDelegate <NSObject>
 
--(void)didSwapCell:(Hi5CardCell *)sourceCell withCell:(Hi5CardCell *)targetCell atIndexPath:(NSIndexPath *)indexpath;
-
+-(void)willSwapCellAtIndexPath:(NSIndexPath *)sourceIndexpath
+           withCellAtIndexPath:(NSIndexPath *)targetIndexpath;
+@optional
+-(BOOL)cellShouldDrag:(Hi5CardCell *)cell
+   forItemAtIndexPath:(NSIndexPath *)indexPath;
 @end

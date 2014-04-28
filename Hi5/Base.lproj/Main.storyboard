@@ -67,7 +67,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="debugLabel" destination="hDa-pX-WX8" id="xZr-ko-PEg"/>
-                                            <outlet property="image" destination="KPn-3o-LQ4" id="xdp-rg-gTh"/>
+                                            <outlet property="imageView" destination="KPn-3o-LQ4" id="fX0-dg-33f"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

@@ -97,7 +97,7 @@
         NSString *color = [arr objectAtIndex:0];
         NSString *value = [[arr objectAtIndex:1] substringToIndex:([[arr objectAtIndex:1] length]-4)];
         
-        [cell.image setImage:[UIImage imageNamed:imageName]];
+        [cell.imageView setImage:[UIImage imageNamed:imageName]];
         [cell setName:color];
         [cell setRank:[value integerValue]];
     }
@@ -118,23 +118,33 @@
     
 }
 
--(void)didSwapCell:(Hi5CardCell *)sourceCell withCell:(Hi5CardCell *)targetCell atIndexPath:(NSIndexPath *)indexpath
+-(BOOL)cellShouldDrag:(Hi5CardCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self willSwapCards:sourceCell withCell:targetCell atIndexPath:indexpath];
+    return ([cell rank] != 0);
 }
 
-- (void)swapCell:(Hi5CardCell *)sourceCell withCell:(Hi5CardCell *)targetCell atIndexPath:(NSIndexPath *)indexpath
+-(void)willSwapCellAtIndexPath:(NSIndexPath *)sourceIndexpath withCellAtIndexPath:(NSIndexPath *)targetIndexpath
+{
+    [self shouldSwapCellAtIndexPath:sourceIndexpath
+                withCellAtIndexPath:targetIndexpath];
+}
+
+-(void)swapCellAtIndexPath:(NSIndexPath *)sourceIndexpath
+       withCellAtIndexPath:(NSIndexPath *)targetIndexpath
 {
     [self.boardView performBatchUpdates:^{
-        [self.boardView moveItemAtIndexPath:[self.boardView indexPathForCell:sourceCell]
-                                toIndexPath:indexpath];
-        [self.boardView moveItemAtIndexPath:indexpath
-                                toIndexPath:[self.boardView indexPathForCell:sourceCell]];
+        [self.boardView moveItemAtIndexPath:sourceIndexpath
+                                toIndexPath:targetIndexpath];
+        [self.boardView moveItemAtIndexPath:targetIndexpath
+                                toIndexPath:sourceIndexpath];
     } completion:nil];
 }
 
--(void)willSwapCards:(Hi5CardCell *)sourceCell withCell:(Hi5CardCell *)targetCell atIndexPath:(NSIndexPath *)indexpath
+-(void)shouldSwapCellAtIndexPath:(NSIndexPath *)sourceIndexpath
+             withCellAtIndexPath:(NSIndexPath *)targetIndexpath
 {
+    Hi5CardCell *sourceCell = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:sourceIndexpath];
+    Hi5CardCell *targetCell = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:targetIndexpath];
 	//Checking if the selected card is valid. i.e. not empty card
 	if([sourceCell rank] != 0)
 	{
@@ -145,12 +155,13 @@
 			if([sourceCell rank] == 1)
 			{
 				//Ace can only be placed in the first element of any row
-				if(indexpath.item == NUM_ROWS*0 ||
-				   indexpath.item == NUM_ROWS*1 ||
-				   indexpath.item == NUM_ROWS*2 ||
-				   indexpath.item == NUM_ROWS*3)
+				if(targetIndexpath.item == NUM_ROWS*0 ||
+				   targetIndexpath.item == NUM_ROWS*1 ||
+				   targetIndexpath.item == NUM_ROWS*2 ||
+				   targetIndexpath.item == NUM_ROWS*3)
 				{
-					[self swapCell:sourceCell withCell:targetCell atIndexPath:indexpath];
+					[self swapCellAtIndexPath:sourceIndexpath
+                          withCellAtIndexPath:targetIndexpath];
 				}
 				else
 				{
@@ -159,23 +170,24 @@
 			}
 			else
 			{
-				if(indexpath.item == NUM_ROWS*0 ||
-				   indexpath.item == NUM_ROWS*1 ||
-				   indexpath.item == NUM_ROWS*2 ||
-				   indexpath.item == NUM_ROWS*3)
+				if(targetIndexpath.item == NUM_ROWS*0 ||
+				   targetIndexpath.item == NUM_ROWS*1 ||
+				   targetIndexpath.item == NUM_ROWS*2 ||
+				   targetIndexpath.item == NUM_ROWS*3)
 				{
 					[self didFailToSwapCardsWithError:@"You can only place an Ace here"];
 				}
 				else
 				{
-                    NSIndexPath *i = [NSIndexPath indexPathForItem:indexpath.item-1 inSection:0];
+                    NSIndexPath *i = [NSIndexPath indexPathForItem:targetIndexpath.item-1 inSection:0];
 					Hi5CardCell *leftCard = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:i];
 					
 					if([[sourceCell name] caseInsensitiveCompare:[leftCard name]] == NSOrderedSame)
 					{
 						if([sourceCell rank]-1 == [leftCard rank])
 						{
-							[self swapCell:sourceCell withCell:targetCell atIndexPath:indexpath];
+							[self swapCellAtIndexPath:sourceIndexpath
+                                  withCellAtIndexPath:targetIndexpath];
 						}
 						else
 						{

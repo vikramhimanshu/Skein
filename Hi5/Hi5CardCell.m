@@ -9,7 +9,7 @@
 #import "Hi5CardCell.h"
 #import "UILabel+nsobject.h"
 
-@interface Hi5CardCell ()
+@interface Hi5CardCell ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) UIPanGestureRecognizer *gestureRecognizer;
 @property (nonatomic,assign) CGPoint originalCenter;
@@ -28,7 +28,12 @@
         [copy setFrame:self.frame];
         [copy setOriginalCenter:self.originalCenter];
         [copy setOriginalFrame:self.originalFrame];
-        [copy setBackgroundColor:[UIColor redColor]];
+        [copy setRank:self.rank];
+        [copy setCardType:self.cardType];
+        UIImageView *imageViewCopy = [[UIImageView alloc] initWithFrame:self.imageView.frame];
+        [imageViewCopy setImage:self.imageView.image];
+        [copy addSubview:imageViewCopy];
+        [copy setName:[self.name copy]];
         [copy addSubview:[self.debugLabel copy]];
         [copy awakeFromNib];
     }
@@ -44,9 +49,23 @@
 {
     self.gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                      action:@selector(handlePanGesture:)];
+    [self.gestureRecognizer setDelegate:self];
     [self addGestureRecognizer:self.gestureRecognizer];
     [self.layer setBorderWidth:0.5];
     self.originalBackgroundColor = self.backgroundColor;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    BOOL shouldBegin = NO;
+    if ([self.gestureRecognizers containsObject:self.gestureRecognizer]) {
+        shouldBegin = YES;
+        if ([self.delegate respondsToSelector:@selector(cellShouldDrag:forItemAtIndexPath:)]) {
+            shouldBegin = [self.delegate cellShouldDrag:self
+                                     forItemAtIndexPath:[(UICollectionView *)[self superview] indexPathForCell:self]];
+        }
+    }
+    return shouldBegin;
 }
 
 -(void)handlePanGesture:(UIPanGestureRecognizer *)gesture
@@ -73,27 +92,25 @@
     
     else if (gesture.state == UIGestureRecognizerStateEnded)
     {
-        __block NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.draggableView.center];
-        __block Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
-        _canRelease = (targetCell!=nil);
-//        NSLog(@"\n\nDropped>>>\n\n");
-//        [self logCellAtPoint:self.draggableView.center];
-//        NSLog(@"\n\nDropped<<<\n\n");
+        NSIndexPath *targetCellIndexPath = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.draggableView.center];
+        NSIndexPath *selfIndexPath = [(UICollectionView *)[self superview] indexPathForCell:self];
+        
+        _canRelease = ([targetCellIndexPath isEqual:NULL]||
+                       ![targetCellIndexPath isEqual:selfIndexPath]);
         
         if (_canRelease) {
             [self.draggableView removeFromSuperview];
             [UIView animateWithDuration:0.4 animations:^{
                 [self.draggableView setAlpha:0.0];
                 [self.draggableView removeFromSuperview];
-//                targetCell.frame = self.originalFrame;
-//                self.frame = newFrame;
             } completion:^(BOOL finished) {
-                [self.delegate didSwapCell:self withCell:targetCell atIndexPath:ip];
+                [self.delegate willSwapCellAtIndexPath:selfIndexPath
+                                   withCellAtIndexPath:targetCellIndexPath];
             }];
         }
         else
         {
-            NSLog(@"IndexPath: %@",ip);
+            NSLog(@"InvalidDrop->IndexPath: %@",targetCellIndexPath);
             [UIView animateWithDuration:0.2 animations:^{
                 self.draggableView.frame = self.originalFrame;
                 [self.draggableView removeFromSuperview];
