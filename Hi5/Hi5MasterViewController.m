@@ -13,10 +13,9 @@
 #define NUM_ROWS 6
 #define NUM_COLS 4
 
-@interface Hi5MasterViewController ()<UICollectionViewDataSource, UICollectionViewDelegate,Hi5CardCellDelegate> {
-    NSMutableArray *imgArray;
-}
+@interface Hi5MasterViewController ()<UICollectionViewDataSource, UICollectionViewDelegate,Hi5CardCellDelegate>
 
+@property (nonatomic, strong) NSMutableArray *imgArray;
 @property (nonatomic, strong) IBOutlet UICollectionView *boardView;
 
 @end
@@ -32,38 +31,56 @@
 {
     [super viewDidLoad];
     
-    imgArray = [[NSMutableArray alloc] init];
-	[imgArray addObject:@"spades+1.png"];
-	[imgArray addObject:@"spades+2.png"];
-	[imgArray addObject:@"spades+3.png"];
-	[imgArray addObject:@"spades+4.png"];
-	[imgArray addObject:@"spades+5.png"];
-	[imgArray addObject:@"empty+0.jpg"];
-	[imgArray addObject:@"hearts+1.png"];
-	[imgArray addObject:@"hearts+2.png"];
-	[imgArray addObject:@"hearts+3.png"];
-	[imgArray addObject:@"hearts+4.png"];
-	[imgArray addObject:@"hearts+5.png"];
-	[imgArray addObject:@"empty+0.jpg"];
-	[imgArray addObject:@"clubs+1.png"];
-	[imgArray addObject:@"clubs+2.png"];
-	[imgArray addObject:@"clubs+3.png"];
-	[imgArray addObject:@"clubs+4.png"];
-	[imgArray addObject:@"clubs+5.png"];
-	[imgArray addObject:@"empty+0.jpg"];
-	[imgArray addObject:@"diamonds+1.png"];
-	[imgArray addObject:@"diamonds+2.png"];
-	[imgArray addObject:@"diamonds+3.png"];
-	[imgArray addObject:@"diamonds+4.png"];
-	[imgArray addObject:@"diamonds+5.png"];
-	[imgArray addObject:@"empty+0.jpg"];
-    
     [self.navigationController setNavigationBarHidden:YES];
     
+    [self startNewGame];
+}
+
+-(NSMutableArray *)imgArray
+{
+    if(!_imgArray)
+    {
+        _imgArray = [[NSMutableArray alloc] initWithCapacity:24];
+    }
+    return _imgArray;
+}
+
+- (IBAction)startNewGame
+{
+    [self populateImageArray];
     [self.boardView reloadData];
 }
 
-#pragma mark - Table View
+- (void)populateImageArray
+{
+    [self.imgArray removeAllObjects];
+    [self.imgArray addObject:@"spades+1.png"];
+	[self.imgArray addObject:@"spades+2.png"];
+	[self.imgArray addObject:@"spades+3.png"];
+	[self.imgArray addObject:@"spades+4.png"];
+	[self.imgArray addObject:@"spades+5.png"];
+	[self.imgArray addObject:@"empty+0.jpg"];
+	[self.imgArray addObject:@"hearts+1.png"];
+	[self.imgArray addObject:@"hearts+2.png"];
+	[self.imgArray addObject:@"hearts+3.png"];
+	[self.imgArray addObject:@"hearts+4.png"];
+	[self.imgArray addObject:@"hearts+5.png"];
+	[self.imgArray addObject:@"empty+0.jpg"];
+	[self.imgArray addObject:@"clubs+1.png"];
+	[self.imgArray addObject:@"clubs+2.png"];
+	[self.imgArray addObject:@"clubs+3.png"];
+	[self.imgArray addObject:@"clubs+4.png"];
+	[self.imgArray addObject:@"clubs+5.png"];
+	[self.imgArray addObject:@"empty+0.jpg"];
+	[self.imgArray addObject:@"diamonds+1.png"];
+	[self.imgArray addObject:@"diamonds+2.png"];
+	[self.imgArray addObject:@"diamonds+3.png"];
+	[self.imgArray addObject:@"diamonds+4.png"];
+	[self.imgArray addObject:@"diamonds+5.png"];
+	[self.imgArray addObject:@"empty+0.jpg"];
+}
+
+#pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -83,15 +100,15 @@
     cell.name = [NSString stringWithFormat:@"Cell Number: %lu",(long)indexPath.item];
     cell.tag = indexPath.item+1;
     
-    if([imgArray count]>0)
+    if([_imgArray count]>0)
     {
         NSInteger randomIndex = [self generateIndex];
         if (randomIndex == 0) {
             NSLog(@"");
         }
-        NSString *imageName = [imgArray objectAtIndex:randomIndex];
+        NSString *imageName = [_imgArray objectAtIndex:randomIndex];
         //Removing the object from the image array because we want unique ramdom numbers
-        [imgArray removeObjectAtIndex:randomIndex];
+        [_imgArray removeObjectAtIndex:randomIndex];
         
         NSArray *arr = [imageName componentsSeparatedByString:@"+"];
         NSString *color = [arr objectAtIndex:0];
@@ -107,9 +124,9 @@
 
 -(NSInteger)generateIndex
 {
-	if([imgArray count] >0 )
+	if([_imgArray count] >0 )
 	{
-		return (arc4random() % [imgArray count]);
+		return (arc4random() % [_imgArray count]);
 	}
 	else
 	{

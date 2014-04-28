@@ -32,6 +32,7 @@
         [copy setCardType:self.cardType];
         UIImageView *imageViewCopy = [[UIImageView alloc] initWithFrame:self.imageView.frame];
         [imageViewCopy setImage:self.imageView.image];
+        [imageViewCopy setContentMode:self.imageView.contentMode];
         [copy addSubview:imageViewCopy];
         [copy setName:[self.name copy]];
         if (![self.debugLabel isHidden]) {
@@ -49,6 +50,7 @@
 
 -(void)awakeFromNib
 {
+    self.canRelease = NO;
     self.gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                      action:@selector(handlePanGesture:)];
     [self.gestureRecognizer setDelegate:self];
@@ -76,8 +78,8 @@
         self.originalCenter = self.center;
         self.originalFrame = self.frame;
         self.draggableView = [self copy];
-        [self.draggableView setAlpha:0.65];
-        [self.draggableView setTransform:CGAffineTransformMakeScale(1.1, 1.1)];
+        [self.draggableView setAlpha:0.80];
+        [self.draggableView setTransform:CGAffineTransformMakeScale(0.80, 0.80)];
         [[self superview] addSubview:self.draggableView];
         [self.window bringSubviewToFront:self.draggableView];
 //        NSLog(@"\n\nDragged>>>\n\n");
@@ -97,8 +99,8 @@
         NSIndexPath *targetCellIndexPath = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.draggableView.center];
         NSIndexPath *selfIndexPath = [(UICollectionView *)[self superview] indexPathForCell:self];
         
-        _canRelease = ([targetCellIndexPath isEqual:NULL]||
-                       ![targetCellIndexPath isEqual:selfIndexPath]);
+        _canRelease = ((targetCellIndexPath != nil) &&
+                       (targetCellIndexPath != selfIndexPath));
         
         if (_canRelease) {
             [self.draggableView removeFromSuperview];
