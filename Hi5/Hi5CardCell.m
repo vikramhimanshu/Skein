@@ -34,7 +34,9 @@
         [imageViewCopy setImage:self.imageView.image];
         [copy addSubview:imageViewCopy];
         [copy setName:[self.name copy]];
-        [copy addSubview:[self.debugLabel copy]];
+        if (![self.debugLabel isHidden]) {
+            [copy addSubview:[self.debugLabel copy]];
+        }
         [copy awakeFromNib];
     }
     return copy;
