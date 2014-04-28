@@ -60,7 +60,7 @@
         [[self superview] addSubview:self.draggableView];
         [self.window bringSubviewToFront:self.draggableView];
 //        NSLog(@"\n\nDragged>>>\n\n");
-        [self logCellAtPoint:self.center];
+//        [self logCellAtPoint:self.center];
 //        NSLog(@"\n\nDragged<<<\n\n");
     }
     
@@ -75,10 +75,9 @@
     {
         __block NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:self.draggableView.center];
         __block Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
-        __block CGRect newFrame = [targetCell frame];
         _canRelease = (targetCell!=nil);
 //        NSLog(@"\n\nDropped>>>\n\n");
-        [self logCellAtPoint:self.draggableView.center];
+//        [self logCellAtPoint:self.draggableView.center];
 //        NSLog(@"\n\nDropped<<<\n\n");
         
         if (_canRelease) {
@@ -94,6 +93,7 @@
         }
         else
         {
+            NSLog(@"IndexPath: %@",ip);
             [UIView animateWithDuration:0.2 animations:^{
                 self.draggableView.frame = self.originalFrame;
                 [self.draggableView removeFromSuperview];
@@ -102,11 +102,11 @@
     }
 }
 
-- (void)logCellAtPoint:(CGPoint)p
-{
-    NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:p];
-    Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
-//    NSLog(@"\n\n\ncell: %@ \natPoint: %@ \nwithIndexPath: %d\n\n",targetCell.debugLabel.text,NSStringFromCGPoint(self.draggableView.center),ip.item);
-}
+//- (void)logCellAtPoint:(CGPoint)p
+//{
+//    NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:p];
+//    Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
+////    NSLog(@"\n\n\ncell: %@ \natPoint: %@ \nwithIndexPath: %d\n\n",targetCell.debugLabel.text,NSStringFromCGPoint(self.draggableView.center),ip.item);
+//}
 
 @end

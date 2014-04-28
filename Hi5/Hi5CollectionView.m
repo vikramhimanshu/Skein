@@ -10,13 +10,9 @@
 
 @implementation Hi5CollectionView
 
-- (id)initWithFrame:(CGRect)frame
+-(id)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    return [super dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
 
