@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NSMutableArray *imgArray;
 @property (nonatomic, strong) IBOutlet UICollectionView *boardView;
+@property (nonatomic, strong) NSMutableArray *cardsArray;
 
 @end
 
@@ -32,8 +33,26 @@
     [super viewDidLoad];
     
     [self.navigationController setNavigationBarHidden:YES];
+//    self.boardView.frame = CGRectMake(0, 0, 320, 480);
+//    self.boardView.bounds = self.boardView.frame;
+    [self.boardView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"empty+0.jpg"]]];
+    UICollectionViewFlowLayout *fl = (UICollectionViewFlowLayout *)[self.boardView collectionViewLayout];
+    [fl setMinimumInteritemSpacing:0.0];
+    [fl setMinimumLineSpacing:0.0];
+//    [fl setSectionInset:UIEdgeInsetsZero];
     
+//    CGFloat width = self.boardView.bounds.size.height / 6;
+    [fl setItemSize:CGSizeMake(75, 75)];
+    
+//    [fl setItemSize:CGSizeMake(75, 75)];
+//    [self.boardView setCollectionViewLayout:fl];
     [self startNewGame];
+    
+//    int count = 24;
+//    while (count>0) {
+//        u_int32_t ri = (arc4random() % count--);
+//        NSLog(@"%d %d",count,ri);
+//    }
 }
 
 -(NSMutableArray *)imgArray
@@ -48,6 +67,7 @@
 - (IBAction)startNewGame
 {
     [self populateImageArray];
+    [self buildCardsArray];
     [self.boardView reloadData];
 }
 
@@ -80,6 +100,11 @@
 	[self.imgArray addObject:@"empty+0.jpg"];
 }
 
+-(void)buildCardsArray
+{
+    
+}
+
 #pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -89,12 +114,13 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 24;
+    return 24;//[self.cardsArray count];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Hi5CardCell *cell = (Hi5CardCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"card" forIndexPath:indexPath];
+    Hi5CardCell *cell = (Hi5CardCell *)[collectionView dequeueReusableCellWithReuseIdentifier:[Hi5CardCell reuseIdentifier]
+                                                                                 forIndexPath:indexPath];
     cell.delegate = self;
     cell.debugLabel.text = [NSString stringWithFormat:@"%lu",(long)[indexPath item]];
     cell.name = [NSString stringWithFormat:@"Cell Number: %lu",(long)indexPath.item];
@@ -103,9 +129,6 @@
     if([_imgArray count]>0)
     {
         NSInteger randomIndex = [self generateIndex];
-        if (randomIndex == 0) {
-            NSLog(@"");
-        }
         NSString *imageName = [_imgArray objectAtIndex:randomIndex];
         //Removing the object from the image array because we want unique ramdom numbers
         [_imgArray removeObjectAtIndex:randomIndex];
@@ -117,25 +140,40 @@
         [cell.imageView setImage:[UIImage imageNamed:imageName]];
         [cell setName:color];
         [cell setRank:[value integerValue]];
+//        [self markSpaceAsInValid:indexPath];
     }
     
     return cell;
+}
+
+- (void)markSpaceAsInValid:(NSIndexPath *)indexPath
+{
+    Hi5CardCell *cell = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:indexPath];
+    if (cell.rank==5) {
+        Hi5CardCell *rightCell = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.item+1
+                                                                                                          inSection:indexPath.section]];
+        if (rightCell.rank==0) {
+            rightCell.userInteractionEnabled = NO;
+            [rightCell.contentView setBackgroundColor:[UIColor colorWithWhite:1 alpha:.65]];
+        }
+    }
 }
 
 -(NSInteger)generateIndex
 {
 	if([_imgArray count] >0 )
 	{
-		return (arc4random() % [_imgArray count]);
+        u_int32_t ri = (arc4random() % [_imgArray count]);
+        NSLog(@"%lu %d",(unsigned long)[_imgArray count],ri);
+		return ri;
 	}
 	else
 	{
 		return 0;
 	}
-    
 }
 
--(BOOL)cellShouldDrag:(Hi5CardCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+-(BOOL)shouldDragCell:(Hi5CardCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     return ([cell rank] != 0);
 }
@@ -154,7 +192,10 @@
                                 toIndexPath:targetIndexpath];
         [self.boardView moveItemAtIndexPath:targetIndexpath
                                 toIndexPath:sourceIndexpath];
-    } completion:nil];
+    } completion:^(BOOL finished) {
+//        [self markSpaceAsInValid:sourceIndexpath];
+//        [self markSpaceAsInValid:targetIndexpath];
+    }];
 }
 
 -(void)shouldSwapCellAtIndexPath:(NSIndexPath *)sourceIndexpath

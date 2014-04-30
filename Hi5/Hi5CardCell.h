@@ -18,6 +18,9 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, weak)   IBOutlet UIImageView *imageView;
 @property (nonatomic, weak)   IBOutlet UILabel *debugLabel;
+
++(NSString *)reuseIdentifier;
+
 @end
 
 @protocol Hi5CardCellDelegate <NSObject>
@@ -25,6 +28,6 @@
 -(void)willSwapCellAtIndexPath:(NSIndexPath *)sourceIndexpath
            withCellAtIndexPath:(NSIndexPath *)targetIndexpath;
 @optional
--(BOOL)cellShouldDrag:(Hi5CardCell *)cell
-   forItemAtIndexPath:(NSIndexPath *)indexPath;
+-(BOOL)shouldDragCell:(Hi5CardCell *)cell
+   atIndexPath:(NSIndexPath *)indexPath;
 @end

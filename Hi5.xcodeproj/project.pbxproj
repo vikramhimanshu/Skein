@@ -23,6 +23,7 @@
 		C27950F21907140500D3D8AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950D11907140500D3D8AF /* UIKit.framework */; };
 		C27950FA1907140500D3D8AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C27950F81907140500D3D8AF /* InfoPlist.strings */; };
 		C27950FC1907140500D3D8AF /* Hi5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C27950FB1907140500D3D8AF /* Hi5Tests.m */; };
+		C2A056331910450500D01786 /* Hi5CollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A056321910450500D01786 /* Hi5CollectionViewFlowLayout.m */; };
 		C2B609C2190AF643001DFB14 /* UILabel+nsobject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */; };
 		C2B609D8190B1372001DFB14 /* clubs+1.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609C3190B1372001DFB14 /* clubs+1.png */; };
 		C2B609D9190B1372001DFB14 /* clubs+2.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609C4190B1372001DFB14 /* clubs+2.png */; };
@@ -82,6 +83,8 @@
 		C27950F71907140500D3D8AF /* Hi5Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hi5Tests-Info.plist"; sourceTree = "<group>"; };
 		C27950F91907140500D3D8AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C27950FB1907140500D3D8AF /* Hi5Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hi5Tests.m; sourceTree = "<group>"; };
+		C2A056311910450500D01786 /* Hi5CollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		C2A056321910450500D01786 /* Hi5CollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		C2B609C0190AF643001DFB14 /* UILabel+nsobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+nsobject.h"; sourceTree = "<group>"; };
 		C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+nsobject.m"; sourceTree = "<group>"; };
 		C2B609C3190B1372001DFB14 /* clubs+1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clubs+1.png"; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				C2142F601907694B009F30D5 /* Hi5CardCell.m */,
 				C2B609C0190AF643001DFB14 /* UILabel+nsobject.h */,
 				C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */,
+				C2A056311910450500D01786 /* Hi5CollectionViewFlowLayout.h */,
+				C2A056321910450500D01786 /* Hi5CollectionViewFlowLayout.m */,
 			);
 			path = Hi5;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 				C27950E71907140500D3D8AF /* Hi5DetailViewController.m in Sources */,
 				C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */,
 				C27950E41907140500D3D8AF /* Hi5MasterViewController.m in Sources */,
+				C2A056331910450500D01786 /* Hi5CollectionViewFlowLayout.m in Sources */,
 				C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */,
 				C27950DA1907140500D3D8AF /* main.m in Sources */,
 				C2B609C2190AF643001DFB14 /* UILabel+nsobject.m in Sources */,

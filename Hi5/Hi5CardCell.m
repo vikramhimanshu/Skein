@@ -9,6 +9,8 @@
 #import "Hi5CardCell.h"
 #import "UILabel+nsobject.h"
 
+static UIColor *c;
+
 @interface Hi5CardCell ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) UIPanGestureRecognizer *gestureRecognizer;
@@ -38,7 +40,6 @@
         if (![self.debugLabel isHidden]) {
             [copy addSubview:[self.debugLabel copy]];
         }
-        [copy awakeFromNib];
     }
     return copy;
 }
@@ -48,14 +49,23 @@
     [self removeGestureRecognizer:self.gestureRecognizer];
 }
 
++(NSString *)reuseIdentifier
+{
+    return NSStringFromClass(self);
+}
+
 -(void)awakeFromNib
 {
+    if (!c) {
+        c = [UIColor colorWithPatternImage:[UIImage imageNamed:@"empty+0.jpg"]];
+    }
+    [self.contentView setBackgroundColor:c];
+    [self.contentView.layer setBorderWidth:0.5];
     self.canRelease = NO;
     self.gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                      action:@selector(handlePanGesture:)];
     [self.gestureRecognizer setDelegate:self];
     [self addGestureRecognizer:self.gestureRecognizer];
-    [self.layer setBorderWidth:0.5];
     self.originalBackgroundColor = self.backgroundColor;
 }
 
@@ -64,12 +74,21 @@
     BOOL shouldBegin = NO;
     if ([self.gestureRecognizers containsObject:self.gestureRecognizer]) {
         shouldBegin = YES;
-        if ([self.delegate respondsToSelector:@selector(cellShouldDrag:forItemAtIndexPath:)]) {
-            shouldBegin = [self.delegate cellShouldDrag:self
-                                     forItemAtIndexPath:[(UICollectionView *)[self superview] indexPathForCell:self]];
+        if ([self.delegate respondsToSelector:@selector(shouldDragCell:atIndexPath:)]) {
+            shouldBegin = [self.delegate shouldDragCell:self
+                                            atIndexPath:[(UICollectionView *)[self superview] indexPathForCell:self]];
         }
     }
     return shouldBegin;
+}
+
+- (Hi5CardCell *)createDraggableView
+{
+    self.draggableView = [self copy];
+    [self.draggableView setAlpha:0.80];
+    [self.draggableView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+    [self.draggableView setBackgroundColor:[UIColor clearColor]];
+    return self.draggableView;
 }
 
 -(void)handlePanGesture:(UIPanGestureRecognizer *)gesture
@@ -77,19 +96,12 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
         self.originalFrame = self.frame;
-        self.draggableView = [self copy];
-        [self.draggableView setAlpha:0.80];
-        [self.draggableView setTransform:CGAffineTransformMakeScale(0.80, 0.80)];
-        [[self superview] addSubview:self.draggableView];
+        [[self superview] addSubview:[self createDraggableView]];
         [self.window bringSubviewToFront:self.draggableView];
-//        NSLog(@"\n\nDragged>>>\n\n");
-//        [self logCellAtPoint:self.center];
-//        NSLog(@"\n\nDragged<<<\n\n");
     }
     
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self];
-//        NSLog(@"translation %@",NSStringFromCGPoint(translation));
         self.draggableView.center = CGPointMake(_originalCenter.x + translation.x,
                                                 _originalCenter.y + translation.y);
     }
@@ -103,7 +115,6 @@
                        (targetCellIndexPath != selfIndexPath));
         
         if (_canRelease) {
-            [self.draggableView removeFromSuperview];
             [UIView animateWithDuration:0.4 animations:^{
                 [self.draggableView setAlpha:0.0];
                 [self.draggableView removeFromSuperview];
@@ -122,12 +133,5 @@
         }
     }
 }
-
-//- (void)logCellAtPoint:(CGPoint)p
-//{
-//    NSIndexPath *ip = [(UICollectionView *)[self superview] indexPathForItemAtPoint:p];
-//    Hi5CardCell *targetCell = (Hi5CardCell *)[(UICollectionView *)[self superview] cellForItemAtIndexPath:ip];
-////    NSLog(@"\n\n\ncell: %@ \natPoint: %@ \nwithIndexPath: %d\n\n",targetCell.debugLabel.text,NSStringFromCGPoint(self.draggableView.center),ip.item);
-//}
 
 @end
