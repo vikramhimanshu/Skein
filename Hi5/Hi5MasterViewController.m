@@ -33,26 +33,12 @@
     [super viewDidLoad];
     
     [self.navigationController setNavigationBarHidden:YES];
-//    self.boardView.frame = CGRectMake(0, 0, 320, 480);
-//    self.boardView.bounds = self.boardView.frame;
     [self.boardView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"empty+0.jpg"]]];
     UICollectionViewFlowLayout *fl = (UICollectionViewFlowLayout *)[self.boardView collectionViewLayout];
     [fl setMinimumInteritemSpacing:0.0];
     [fl setMinimumLineSpacing:0.0];
-//    [fl setSectionInset:UIEdgeInsetsZero];
-    
-//    CGFloat width = self.boardView.bounds.size.height / 6;
     [fl setItemSize:CGSizeMake(75, 75)];
-    
-//    [fl setItemSize:CGSizeMake(75, 75)];
-//    [self.boardView setCollectionViewLayout:fl];
     [self startNewGame];
-    
-//    int count = 24;
-//    while (count>0) {
-//        u_int32_t ri = (arc4random() % count--);
-//        NSLog(@"%d %d",count,ri);
-//    }
 }
 
 -(NSMutableArray *)imgArray
@@ -136,11 +122,15 @@
         NSArray *arr = [imageName componentsSeparatedByString:@"+"];
         NSString *color = [arr objectAtIndex:0];
         NSString *value = [[arr objectAtIndex:1] substringToIndex:([[arr objectAtIndex:1] length]-4)];
-        
-        [cell.imageView setImage:[UIImage imageNamed:imageName]];
         [cell setName:color];
         [cell setRank:[value integerValue]];
-//        [self markSpaceAsInValid:indexPath];
+        if (cell.rank != 0) {
+            [cell.imageView setImage:[UIImage imageNamed:imageName]];
+        }
+        else
+        {
+            
+        }
     }
     
     return cell;
@@ -187,14 +177,16 @@
 -(void)swapCellAtIndexPath:(NSIndexPath *)sourceIndexpath
        withCellAtIndexPath:(NSIndexPath *)targetIndexpath
 {
+    Hi5CardCell *targetCell = (Hi5CardCell *)[self.boardView
+                                              cellForItemAtIndexPath:targetIndexpath];
+    [targetCell showBorder:NO];
     [self.boardView performBatchUpdates:^{
         [self.boardView moveItemAtIndexPath:sourceIndexpath
                                 toIndexPath:targetIndexpath];
         [self.boardView moveItemAtIndexPath:targetIndexpath
                                 toIndexPath:sourceIndexpath];
     } completion:^(BOOL finished) {
-//        [self markSpaceAsInValid:sourceIndexpath];
-//        [self markSpaceAsInValid:targetIndexpath];
+        [targetCell showBorder:YES];
     }];
 }
 

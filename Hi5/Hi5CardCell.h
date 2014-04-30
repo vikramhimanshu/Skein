@@ -20,6 +20,7 @@
 @property (nonatomic, weak)   IBOutlet UILabel *debugLabel;
 
 +(NSString *)reuseIdentifier;
+- (void)showBorder:(BOOL)yes;
 
 @end
 

@@ -9,8 +9,6 @@
 #import "Hi5CardCell.h"
 #import "UILabel+nsobject.h"
 
-static UIColor *c;
-
 @interface Hi5CardCell ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) UIPanGestureRecognizer *gestureRecognizer;
@@ -56,10 +54,6 @@ static UIColor *c;
 
 -(void)awakeFromNib
 {
-    if (!c) {
-        c = [UIColor colorWithPatternImage:[UIImage imageNamed:@"empty+0.jpg"]];
-    }
-    [self.contentView setBackgroundColor:c];
     [self.contentView.layer setBorderWidth:0.5];
     self.canRelease = NO;
     self.gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
@@ -67,6 +61,14 @@ static UIColor *c;
     [self.gestureRecognizer setDelegate:self];
     [self addGestureRecognizer:self.gestureRecognizer];
     self.originalBackgroundColor = self.backgroundColor;
+}
+
+- (void)showBorder:(BOOL)yes
+{
+    if (yes)
+        [self.contentView.layer setBorderWidth:0.5];
+    else
+        [self.contentView.layer setBorderWidth:0.0];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
