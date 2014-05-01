@@ -8,6 +8,7 @@
 
 #import "Hi5CardCell.h"
 #import "UILabel+nsobject.h"
+#import "Hi5Card.h"
 
 @interface Hi5CardCell ()<UIGestureRecognizerDelegate>
 
@@ -21,6 +22,23 @@
 
 @implementation Hi5CardCell
 
+- (instancetype)initWithCard:(Hi5Card *)card
+{
+    if (self = [[[self class] alloc] init])
+    {
+        [self populateWithCard:card];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCard:(Hi5Card *)card delegate:(id<Hi5CardCellDelegate>) delegate
+{
+    if(self = [self initWithCard:card])
+        [self setDelegate:delegate];
+    return self;
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
     id copy = [[[self class] alloc] init];
@@ -28,18 +46,28 @@
         [copy setFrame:self.frame];
         [copy setOriginalCenter:self.originalCenter];
         [copy setOriginalFrame:self.originalFrame];
-        [copy setRank:self.rank];
-        [copy setCardType:self.cardType];
+        
+        [copy setCard:self.card];
+        
         UIImageView *imageViewCopy = [[UIImageView alloc] initWithFrame:self.imageView.frame];
         [imageViewCopy setImage:self.imageView.image];
         [imageViewCopy setContentMode:self.imageView.contentMode];
         [copy addSubview:imageViewCopy];
-        [copy setName:[self.name copy]];
+        
         if (![self.debugLabel isHidden]) {
             [copy addSubview:[self.debugLabel copy]];
         }
     }
     return copy;
+}
+
+- (void)populateWithCard:(Hi5Card *)card
+{
+    [self setCard:card];
+    if (card.rank == 0)
+        [self.imageView setImage:nil];
+    else
+        [self.imageView setImage:card.image];
 }
 
 -(void)dealloc
@@ -99,7 +127,7 @@
         self.originalCenter = self.center;
         self.originalFrame = self.frame;
         [[self superview] addSubview:[self createDraggableView]];
-        [self.window bringSubviewToFront:self.draggableView];
+        [[self superview] bringSubviewToFront:self.draggableView];
     }
     
     else if (gesture.state == UIGestureRecognizerStateChanged) {

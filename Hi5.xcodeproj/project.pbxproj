@@ -46,6 +46,9 @@
 		C2B609EA190B1372001DFB14 /* spades+3.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609D5190B1372001DFB14 /* spades+3.png */; };
 		C2B609EB190B1372001DFB14 /* spades+4.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609D6190B1372001DFB14 /* spades+4.png */; };
 		C2B609EC190B1372001DFB14 /* spades+5.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609D7190B1372001DFB14 /* spades+5.png */; };
+		C2DCFA231912C1FC00ABEAFD /* Hi5CardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DCFA221912C1FC00ABEAFD /* Hi5CardDeck.m */; };
+		C2DCFA261912F39700ABEAFD /* Hi5Card.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DCFA251912F39700ABEAFD /* Hi5Card.m */; };
+		C2DCFA291912F70800ABEAFD /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */; };
 		C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +111,12 @@
 		C2B609D5190B1372001DFB14 /* spades+3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spades+3.png"; sourceTree = "<group>"; };
 		C2B609D6190B1372001DFB14 /* spades+4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spades+4.png"; sourceTree = "<group>"; };
 		C2B609D7190B1372001DFB14 /* spades+5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spades+5.png"; sourceTree = "<group>"; };
+		C2DCFA211912C1FC00ABEAFD /* Hi5CardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CardDeck.h; sourceTree = "<group>"; };
+		C2DCFA221912C1FC00ABEAFD /* Hi5CardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CardDeck.m; sourceTree = "<group>"; };
+		C2DCFA241912F39700ABEAFD /* Hi5Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5Card.h; sourceTree = "<group>"; };
+		C2DCFA251912F39700ABEAFD /* Hi5Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5Card.m; sourceTree = "<group>"; };
+		C2DCFA271912F70800ABEAFD /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		C2DDA2B3190A1433002156E5 /* Hi5CollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CollectionView.h; sourceTree = "<group>"; };
 		C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CollectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +195,12 @@
 				C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */,
 				C2A056311910450500D01786 /* Hi5CollectionViewFlowLayout.h */,
 				C2A056321910450500D01786 /* Hi5CollectionViewFlowLayout.m */,
+				C2DCFA211912C1FC00ABEAFD /* Hi5CardDeck.h */,
+				C2DCFA221912C1FC00ABEAFD /* Hi5CardDeck.m */,
+				C2DCFA241912F39700ABEAFD /* Hi5Card.h */,
+				C2DCFA251912F39700ABEAFD /* Hi5Card.m */,
+				C2DCFA271912F70800ABEAFD /* NSMutableArray+Shuffle.h */,
+				C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */,
 			);
 			path = Hi5;
 			sourceTree = "<group>";
@@ -367,10 +382,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27950E71907140500D3D8AF /* Hi5DetailViewController.m in Sources */,
+				C2DCFA231912C1FC00ABEAFD /* Hi5CardDeck.m in Sources */,
 				C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */,
 				C27950E41907140500D3D8AF /* Hi5MasterViewController.m in Sources */,
+				C2DCFA261912F39700ABEAFD /* Hi5Card.m in Sources */,
 				C2A056331910450500D01786 /* Hi5CollectionViewFlowLayout.m in Sources */,
 				C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */,
+				C2DCFA291912F70800ABEAFD /* NSMutableArray+Shuffle.m in Sources */,
 				C27950DA1907140500D3D8AF /* main.m in Sources */,
 				C2B609C2190AF643001DFB14 /* UILabel+nsobject.m in Sources */,
 				C27950DE1907140500D3D8AF /* Hi5AppDelegate.m in Sources */,

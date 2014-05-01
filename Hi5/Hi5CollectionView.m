@@ -8,13 +8,18 @@
 
 #import "Hi5CollectionView.h"
 
+@class Hi5CardCell;
 @implementation Hi5CollectionView
 
--(id)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath
+
+-(void)awakeFromNib
 {
-    return [super dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    
 }
 
-
+-(Hi5CardCell *)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath
+{
+    return (Hi5CardCell *)[super dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+}
 
 @end
