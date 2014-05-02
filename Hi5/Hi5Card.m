@@ -18,10 +18,12 @@
 - (NSString *)description
 {
     NSMutableString *debugStr = [[NSMutableString alloc] init];
-    [debugStr appendFormat:@"Rank: %d",self.rank];
-    [debugStr appendFormat:@"Suit: %d",self.suit];
-    [debugStr appendFormat:@"Name: %@",self.name];
-    [debugStr appendFormat:@"ImageName: %@",self.imgName];
+    [debugStr appendString:@"\n"];
+    [debugStr appendFormat:@"\nRank: %d",self.rank];
+    [debugStr appendFormat:@"\nSuit: %d",self.suit];
+    [debugStr appendFormat:@"\nName: %@",self.name];
+    [debugStr appendFormat:@"\nImageName: %@",self.imgName];
+    [debugStr appendString:@"\n"];
     return debugStr;
 }
 

@@ -7,19 +7,19 @@
 //
 
 #import "Hi5MasterViewController.h"
+#import "Hi5CollectionView.h"
 #import "Hi5CardCell.h"
 #import "Hi5CardDeck.h"
 #import "Hi5Card.h"
-#import "Hi5DetailViewController.h"
 
 #define NUM_ROWS 6
 #define NUM_COLS 4
 
 @interface Hi5MasterViewController ()<UICollectionViewDataSource, UICollectionViewDelegate,Hi5CardCellDelegate>
 
-@property (nonatomic, strong) IBOutlet UICollectionView *boardView;
+@property (nonatomic, strong) IBOutlet Hi5CollectionView *boardView;
 @property (nonatomic, strong) Hi5CardDeck *deck;
-
+@property (nonatomic, strong) NSMutableArray *cards;
 @end
 
 @implementation Hi5MasterViewController
@@ -48,6 +48,23 @@
 {
     self.deck = [Hi5CardDeck sharedInstance];
     [self.deck shuffledDeck];
+    
+    NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:NSRangeFromString(@"0,6")];
+    NSArray *s1 = [NSArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
+    self.cards = [NSMutableArray arrayWithObjects:s1, nil];
+    
+    is = [NSIndexSet indexSetWithIndexesInRange:NSRangeFromString(@"6,6")];
+    s1 = [NSArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
+    [self.cards addObject:s1];
+    
+    is = [NSIndexSet indexSetWithIndexesInRange:NSRangeFromString(@"12,6")];
+    s1 = [NSArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
+    [self.cards addObject:s1];
+    
+    is = [NSIndexSet indexSetWithIndexesInRange:NSRangeFromString(@"18,6")];
+    s1 = [NSArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
+    [self.cards addObject:s1];
+    
     [self.boardView reloadData];
 }
 
@@ -55,22 +72,24 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return [self.cards count];
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.deck count];
+    return [[self.cards objectAtIndex:section] count];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Hi5CardCell *cell = (Hi5CardCell *)[collectionView dequeueReusableCellWithReuseIdentifier:[Hi5CardCell reuseIdentifier]
+    Hi5CardCell *cell = [self.boardView dequeueReusableCellWithReuseIdentifier:[Hi5CardCell reuseIdentifier]
                                                                                  forIndexPath:indexPath];
     cell.delegate = self;
     cell.debugLabel.text = [NSString stringWithFormat:@"%lu",(long)[indexPath item]];
     cell.tag = indexPath.item+1;
-    [cell populateWithCard:(Hi5Card *)[[self.deck deck] objectAtIndex:indexPath.item]];
+    
+    Hi5Card *c = [[self.cards objectAtIndex:indexPath.section] objectAtIndex:indexPath.item];
+    [cell populateWithCard:c];
     return cell;
 }
 
@@ -111,6 +130,15 @@
                                 toIndexPath:sourceIndexpath];
     } completion:^(BOOL finished) {
         [targetCell showBorder:YES];
+        
+        Hi5CardCell *targetCell = (Hi5CardCell *)[self.boardView
+                                                  cellForItemAtIndexPath:targetIndexpath];
+        Hi5CardCell *sourceCell = (Hi5CardCell *)[self.boardView
+                                                  cellForItemAtIndexPath:sourceIndexpath];
+        Hi5CardCell *lc1 = [self.boardView cardOnLeftOfIndexPath:targetIndexpath];
+        Hi5CardCell *lc2 = [self.boardView cardOnLeftOfIndexPath:sourceIndexpath];
+        NSLog(@"card%@\nOnLeftOfCard%@",[lc1.card description],[targetCell.card description]);
+        NSLog(@"card%@\nOnLeftOfCard%@",[lc2.card description],[sourceCell.card description]);
     }];
 }
 
@@ -129,10 +157,7 @@
 			if([sourceCell.card rank] == 1)
 			{
 				//Ace can only be placed in the first element of any row
-				if(targetIndexpath.item == NUM_ROWS*0 ||
-				   targetIndexpath.item == NUM_ROWS*1 ||
-				   targetIndexpath.item == NUM_ROWS*2 ||
-				   targetIndexpath.item == NUM_ROWS*3)
+				if(targetIndexpath.item == 0)
 				{
 					[self swapCellAtIndexPath:sourceIndexpath
                           withCellAtIndexPath:targetIndexpath];
@@ -144,17 +169,13 @@
 			}
 			else
 			{
-				if(targetIndexpath.item == NUM_ROWS*0 ||
-				   targetIndexpath.item == NUM_ROWS*1 ||
-				   targetIndexpath.item == NUM_ROWS*2 ||
-				   targetIndexpath.item == NUM_ROWS*3)
+				if(targetIndexpath.item == 0)
 				{
 					[self didFailToSwapCardsWithError:@"You can only place an Ace here"];
 				}
 				else
 				{
-                    NSIndexPath *i = [NSIndexPath indexPathForItem:targetIndexpath.item-1 inSection:0];
-					Hi5CardCell *leftCard = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:i];
+					Hi5CardCell *leftCard = (Hi5CardCell *)[self.boardView cardOnLeftOfIndexPath:targetIndexpath];
 					
 					if([[sourceCell.card name] caseInsensitiveCompare:[leftCard.card name]] == NSOrderedSame)
 					{

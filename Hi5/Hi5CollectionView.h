@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Hi5CardCell;
 @interface Hi5CollectionView : UICollectionView
+
+- (Hi5CardCell *)cardOnLeftOfIndexPath:(NSIndexPath *)indexPath;
+- (Hi5CardCell *)cardOnLeftOfCard:(Hi5CardCell *)card;
 
 @end
