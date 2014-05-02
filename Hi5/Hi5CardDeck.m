@@ -10,6 +10,8 @@
 #import "Hi5Card.h"
 #import "NSMutableArray+Shuffle.h"
 
+#define NUM_CARD_ROW 6
+
 static NSArray *imgArray;
 static Hi5CardDeck *sharedInstance;
 
@@ -51,6 +53,24 @@ static Hi5CardDeck *sharedInstance;
                  @"empty+0.jpg",
                  @"diamonds+1.png",@"diamonds+2.png",@"diamonds+3.png",@"diamonds+4.png",@"diamonds+5.png",
                  @"empty+0.jpg"];
+}
+
+- (void)shuffle
+{
+    [self.cardDeck shuffle];
+}
+
+- (NSArray *)cards
+{
+    int numRows = [self count]/NUM_CARD_ROW;
+    NSMutableArray *cards = [NSMutableArray new];
+    for (int i =0; i<numRows; i++) {
+        NSRange r = NSMakeRange(i*NUM_CARD_ROW, NUM_CARD_ROW);
+        NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:r];
+        NSArray *s1 = [NSArray arrayWithArray:[[self deck] objectsAtIndexes:is]];
+        [cards addObject:s1];
+    }
+    return cards;
 }
 
 - (NSMutableArray *)shuffledDeck

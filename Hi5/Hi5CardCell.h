@@ -13,6 +13,7 @@
 
 @interface Hi5CardCell : UICollectionViewCell
 
+@property (nonatomic) BOOL isActive;
 @property (nonatomic, strong) Hi5Card *card;
 @property (nonatomic, weak) id<Hi5CardCellDelegate> delegate;
 @property (nonatomic, weak)   IBOutlet UIImageView *imageView;

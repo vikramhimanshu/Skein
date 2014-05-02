@@ -11,6 +11,10 @@
 @class Hi5CardCell;
 @interface Hi5CollectionView : UICollectionView
 
+- (void)resetEmptyCells;
+- (void)adjustEmptyCells;
+- (NSArray *)getEmptyCells;
+- (void)addEmptyCells:(Hi5CardCell *)cards;
 - (Hi5CardCell *)cardOnLeftOfIndexPath:(NSIndexPath *)indexPath;
 - (Hi5CardCell *)cardOnLeftOfCard:(Hi5CardCell *)card;
 

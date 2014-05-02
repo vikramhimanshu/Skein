@@ -61,8 +61,18 @@
     return copy;
 }
 
+-(void)setIsActive:(BOOL)isActive
+{
+    if (!isActive) {
+        [self.contentView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.50]];
+    }else
+        [self.contentView setBackgroundColor:_originalBackgroundColor];
+    _isActive = isActive;
+}
+
 - (void)populateWithCard:(Hi5Card *)card
 {
+    self.isActive = YES;
     [self setCard:card];
     if (card.rank == 0)
         [self.imageView setImage:nil];
