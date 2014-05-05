@@ -16,7 +16,7 @@
 #define NUM_COLS 4
 
 @interface Hi5MasterViewController ()  <UICollectionViewDataSource,
-                                        UICollectionViewDelegate,
+                                        Hi5CollectionViewDelegate,
                                         Hi5CardCellDelegate>
 
 @property (nonatomic, strong) IBOutlet Hi5CollectionView *boardView;
@@ -51,11 +51,6 @@
     [self.boardView reloadData];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [self.boardView adjustEmptyCells];
-}
-
 #pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -81,8 +76,18 @@
     if (c.rank == 0) {
         [self.boardView addEmptyCells:cell];
     }
-    
+    if (indexPath.section==3&&indexPath.item==5) {
+        [self.boardView adjustEmptyCells];
+    }
     return cell;
+}
+
+-(void)didGameEndWithSuccess:(BOOL)success
+{
+    if (success) {
+        [self alertWithTitle:@"Yayyy" andMessage:@"Play Again? :D"];
+    }else
+        [self alertWithTitle:@"Meh, Never Mind!!" andMessage:@"Try Again! :)"];
 }
 
 -(BOOL)shouldDragCell:(Hi5CardCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -110,6 +115,7 @@
     } completion:^(BOOL finished) {
         [targetCell showBorder:YES];
         [self.boardView adjustEmptyCells];
+        [self.boardView checkForGameCompletion];
     }];
 }
 
@@ -180,16 +186,16 @@
 
 -(void)didFailToSwapCardsWithError:(NSString *)error
 {
-	[self alert:error];
+	[self alertWithTitle:@"Invalid Move" andMessage:error];
 }
 
--(void)alert:(NSString *)message
+-(void)alertWithTitle:(NSString *)title andMessage:(NSString *)message
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Move" message:message
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
 												   delegate:self
 										  cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 	[alert show];
 }
-
 
 @end
