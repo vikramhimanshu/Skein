@@ -165,9 +165,9 @@
         }
         else
         {
-            NSLog(@"InvalidDrop->IndexPath: %@",targetCellIndexPath);
             [UIView animateWithDuration:0.2 animations:^{
                 self.draggableView.frame = self.originalFrame;
+            } completion:^(BOOL finished) {
                 [self.draggableView removeFromSuperview];
             }];
         }

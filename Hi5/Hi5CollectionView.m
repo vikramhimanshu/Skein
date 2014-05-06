@@ -83,7 +83,7 @@
     _movesExhausted = NO;
     int count = 0;
     NSArray *arr = [self.emptyCells allObjects];
-    for (int i=[arr count]-1; i>=0; i--)
+    for (NSInteger i=[arr count]-1; i>=0; i--)
     {
         Hi5CardCell *c = [arr objectAtIndex:i];
         Hi5CardCell *lc = [self setLeftCardActive:c];

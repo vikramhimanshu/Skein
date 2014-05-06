@@ -19,8 +19,8 @@
 {
     NSMutableString *debugStr = [[NSMutableString alloc] init];
     [debugStr appendString:@"\n"];
-    [debugStr appendFormat:@"\nRank: %d",self.rank];
-    [debugStr appendFormat:@"\nSuit: %d",self.suit];
+    [debugStr appendFormat:@"\nRank: %lu",(unsigned long)self.rank];
+    [debugStr appendFormat:@"\nSuit: %lu",(unsigned long)self.suit];
     [debugStr appendFormat:@"\nName: %@",self.name];
     [debugStr appendFormat:@"\nImageName: %@",self.imgName];
     [debugStr appendString:@"\n"];

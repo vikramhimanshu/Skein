@@ -6,6 +6,7 @@
 //
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "Hi5MasterViewController.h"
 #import "Hi5CollectionView.h"
 #import "Hi5CardCell.h"
@@ -21,6 +22,9 @@
 
 @property (nonatomic, strong) IBOutlet Hi5CollectionView *boardView;
 @property (nonatomic, strong) Hi5CardDeck *deck;
+
+@property (nonatomic, strong) NSDate *totalTimeInGame;
+
 @end
 
 @implementation Hi5MasterViewController
@@ -28,6 +32,11 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+}
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)viewDidLoad
@@ -186,6 +195,7 @@
 
 -(void)didFailToSwapCardsWithError:(NSString *)error
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 	[self alertWithTitle:@"Invalid Move" andMessage:error];
 }
 

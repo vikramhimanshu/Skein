@@ -62,7 +62,7 @@ static Hi5CardDeck *sharedInstance;
 
 - (NSArray *)cards
 {
-    int numRows = [self count]/NUM_CARD_ROW;
+    NSUInteger numRows = [self count]/NUM_CARD_ROW;
     NSMutableArray *cards = [NSMutableArray new];
     for (int i =0; i<numRows; i++) {
         NSRange r = NSMakeRange(i*NUM_CARD_ROW, NUM_CARD_ROW);
