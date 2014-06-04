@@ -60,7 +60,7 @@
             if(adjCard.isActive)
             {
                 if ((currentCard.card.rank<adjCard.card.rank) &&
-                    ([currentCard.card.name caseInsensitiveCompare:adjCard.card.name] == NSOrderedSame))
+                    (currentCard.card.suit == adjCard.card.suit))
                 {
                     _completion = YES;
                 }

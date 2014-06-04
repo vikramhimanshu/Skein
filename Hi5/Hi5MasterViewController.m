@@ -18,7 +18,8 @@
 
 @interface Hi5MasterViewController ()  <UICollectionViewDataSource,
                                         Hi5CollectionViewDelegate,
-                                        Hi5CardCellDelegate>
+                                        Hi5CardCellDelegate,
+                                        UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet Hi5CollectionView *boardView;
 @property (nonatomic, strong) Hi5CardDeck *deck;
@@ -60,6 +61,15 @@
     [self.boardView reloadData];
 }
 
+#pragma mark - UIAlertViewDelegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==1 && buttonIndex == [alertView cancelButtonIndex]) {
+        [self startNewGame];
+    }
+}
+
 #pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -94,9 +104,9 @@
 -(void)didGameEndWithSuccess:(BOOL)success
 {
     if (success) {
-        [self alertWithTitle:@"Yayyy" andMessage:@"Play Again? :D"];
+        [[self alertWithTitle:@"Yayyy" andMessage:@"Play Again? :D"] setTag:1];
     }else
-        [self alertWithTitle:@"Meh, Never Mind!!" andMessage:@"Try Again! :)"];
+        [[self alertWithTitle:@"Meh, Never Mind!!" andMessage:@"Try Again! :)"] setTag:1];
 }
 
 -(BOOL)shouldDragCell:(Hi5CardCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +173,7 @@
 				{
 					Hi5CardCell *leftCard = (Hi5CardCell *)[self.boardView cardOnLeftOfIndexPath:targetIndexpath];
 					
-					if([[sourceCell.card name] caseInsensitiveCompare:[leftCard.card name]] == NSOrderedSame)
+					if(sourceCell.card.suit == leftCard.card.suit)
 					{
 						if([sourceCell.card rank]-1 == [leftCard.card rank])
 						{
@@ -177,7 +187,7 @@
 					}
 					else
 					{
-						[self didFailToSwapCardsWithError:@"The color of the left card should match with the selected card"];
+						[self didFailToSwapCardsWithError:@"The suit of the left card should match with the selected card"];
 					}
 				}
 			}
@@ -199,13 +209,14 @@
 	[self alertWithTitle:@"Invalid Move" andMessage:error];
 }
 
--(void)alertWithTitle:(NSString *)title andMessage:(NSString *)message
+-(UIAlertView *)alertWithTitle:(NSString *)title andMessage:(NSString *)message
 {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
 												   delegate:self
 										  cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 	[alert show];
+    return alert;
 }
 
 @end

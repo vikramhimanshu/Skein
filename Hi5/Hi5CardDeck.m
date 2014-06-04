@@ -30,16 +30,11 @@ static Hi5CardDeck *sharedInstance;
 }
 
 + (Hi5CardDeck *)sharedInstance {
-    if (nil != sharedInstance) {
-        return sharedInstance;
-    }
-    
     static dispatch_once_t pred;
     dispatch_once(&pred, ^{
         sharedInstance = [[Hi5CardDeck alloc] init];
         [self populateImageArray];
     });
-    
     return sharedInstance;
 }
 
@@ -105,7 +100,7 @@ static Hi5CardDeck *sharedInstance;
         NSArray *arr = [imageName componentsSeparatedByString:@"+"];
         NSString *suit = [arr objectAtIndex:0];
         NSString *value = [[arr objectAtIndex:1] substringToIndex:([[arr objectAtIndex:1] length]-4)];
-        [card setName:suit];
+        [card setSuit:[card suitForName:suit]];
         [card setRank:[value integerValue]];
         [card setImgName:imageName];
         [self.cardDeck addObject:card];

@@ -8,11 +8,31 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    kCardSuit1 = 0,
+    kCardSuit2 = 1,
+    kCardSuit3 = 2,
+    kCardSuit4 = 3,
+    kCardSuitEmpty = 4
+} Suit;
+
+typedef enum : NSUInteger {
+    kCardRank1 = 1,
+    kCardRank2 = 2,
+    kCardRank3 = 3,
+    kCardRank4 = 4,
+    kCardRank5 = 5,
+    kCardRankEmpty = 0
+} Rank;
+
 @interface Hi5Card : NSObject
 
-@property (nonatomic, assign) NSUInteger rank;
-@property (nonatomic, assign) NSUInteger suit;
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, assign) Rank rank;
+@property (nonatomic, assign) Suit suit;
+@property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong) NSString *imgName;
 @property (nonatomic, strong) UIImage *image;
+
+-(Suit)suitForName:(NSString *)name;
+
 @end

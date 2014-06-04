@@ -15,6 +15,45 @@
     return [UIImage imageNamed:self.imgName];
 }
 
+-(NSString *)name
+{
+    switch (self.suit) {
+        case kCardSuit1:
+            return @"spades";
+            break;
+        case kCardSuit2:
+            return @"hearts";
+            break;
+        case kCardSuit3:
+            return @"clubs";
+            break;
+        case kCardSuit4:
+            return @"diamonds";
+            break;
+        case kCardSuitEmpty:
+            return @"empty";
+            break;
+    }
+    return nil;
+}
+
+-(Suit)suitForName:(NSString *)name
+{
+    name = [name lowercaseString];
+    if ([name isEqualToString:@"spades"]) {
+        return kCardSuit1;
+    } else if ([name isEqualToString:@"hearts"]) {
+        return kCardSuit2;
+    } else if ([name isEqualToString:@"clubs"]) {
+        return kCardSuit3;
+    } else if ([name isEqualToString:@"diamonds"]) {
+        return kCardSuit4;
+    } else if ([name isEqualToString:@"empty"]) {
+        return kCardSuitEmpty;
+    }
+    return kCardSuitEmpty;
+}
+
 - (NSString *)description
 {
     NSMutableString *debugStr = [[NSMutableString alloc] init];
