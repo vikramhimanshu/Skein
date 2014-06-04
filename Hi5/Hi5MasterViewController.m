@@ -13,8 +13,7 @@
 #import "Hi5CardDeck.h"
 #import "Hi5Card.h"
 
-#define NUM_ROWS 6
-#define NUM_COLS 4
+#define NUM_CARD_ROW 6
 
 @interface Hi5MasterViewController ()  <UICollectionViewDataSource,
                                         Hi5CollectionViewDelegate,
@@ -22,8 +21,12 @@
                                         UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet Hi5CollectionView *boardView;
-@property (nonatomic, strong) Hi5CardDeck *deck;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *movesLabel;
 
+@property (nonatomic, strong) NSMutableArray *cardArray;
+@property (nonatomic, strong) Hi5CardDeck *deck;
+@property (nonatomic, assign) NSUInteger numberOfMoves;
 @property (nonatomic, strong) NSDate *totalTimeInGame;
 
 @end
@@ -53,11 +56,27 @@
     [self startNewGame];
 }
 
+- (NSMutableArray *)cardArray
+{
+    if (_cardArray==nil) {
+        NSUInteger numRows = [self.deck count]/NUM_CARD_ROW;
+        _cardArray = [NSMutableArray new];
+        for (int i =0; i<numRows; i++) {
+            NSRange r = NSMakeRange(i*NUM_CARD_ROW, NUM_CARD_ROW);
+            NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:r];
+            __autoreleasing NSArray *s1 = [NSArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
+            [_cardArray addObject:s1];
+        }
+    }
+    return _cardArray;
+}
+
 - (IBAction)startNewGame
 {
+    _cardArray.count>0?[self.cardArray removeAllObjects]:nil;
+    self.cardArray = nil;
     [self.boardView resetEmptyCells];
     [self.deck shuffle];
-    [self.deck cards];
     [self.boardView reloadData];
 }
 
@@ -74,12 +93,12 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [[self.deck cards] count];
+    return [self.cardArray count];
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[[self.deck cards] objectAtIndex:section] count];
+    return [[self.cardArray objectAtIndex:section] count];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -90,7 +109,7 @@
     cell.debugLabel.text = [NSString stringWithFormat:@"%lu",(long)[indexPath item]];
     cell.tag = indexPath.item+1;
     
-    Hi5Card *c = [[[self.deck cards] objectAtIndex:indexPath.section] objectAtIndex:indexPath.item];
+    Hi5Card *c = [[self.cardArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.item];
     [cell populateWithCard:c];
     if (c.rank == 0) {
         [self.boardView addEmptyCells:cell];
@@ -131,6 +150,7 @@
                                 toIndexPath:targetIndexpath];
         [self.boardView moveItemAtIndexPath:targetIndexpath
                                 toIndexPath:sourceIndexpath];
+//        [self.cardArray exchangeObjectAtIndex:sourceIndexpath.item withObjectAtIndex:targetIndexpath.item];
     } completion:^(BOOL finished) {
         [targetCell showBorder:YES];
         [self.boardView adjustEmptyCells];

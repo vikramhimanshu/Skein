@@ -13,8 +13,6 @@
 
 @interface Hi5CollectionView : UICollectionView
 
-@property (nonatomic,weak) id<Hi5CollectionViewDelegate> delegate;
-
 - (void)checkForGameCompletion;
 - (void)resetEmptyCells;
 - (void)adjustEmptyCells;
@@ -28,5 +26,12 @@
 @protocol Hi5CollectionViewDelegate <UICollectionViewDelegate>
 
 -(void)didGameEndWithSuccess:(BOOL)success;
+
+@end
+
+@interface Hi5CollectionView (Category)
+ 
+- (id<Hi5CollectionViewDelegate>)delegate;
+- (void)setDelegate:(id<Hi5CollectionViewDelegate>)delegate;
 
 @end

@@ -12,7 +12,6 @@
 
 + (Hi5CardDeck *)sharedInstance;
 - (void)shuffle;
-- (NSArray *)cards;
 - (NSMutableArray *)shuffledDeck;
 - (NSMutableArray *)deck;
 - (NSUInteger)count;

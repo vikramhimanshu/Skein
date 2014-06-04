@@ -21,11 +21,6 @@
 
 @implementation Hi5CollectionView
 
--(id<Hi5CollectionViewDelegate>)delegate
-{
-    return (id<Hi5CollectionViewDelegate>)[super delegate];
-}
-
 -(NSArray *)getEmptyCells
 {
     return [self.emptyCells allObjects];
@@ -74,7 +69,7 @@
         if (!_completion) break;
     }
     if (_completion || _movesExhausted) {
-        [self.delegate didGameEndWithSuccess:_completion];
+        [[self delegate] didGameEndWithSuccess:_completion];
     }
 }
 
