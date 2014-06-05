@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C211B3301940E2C300F015B2 /* Hi5FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */; };
 		C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2142F601907694B009F30D5 /* Hi5CardCell.m */; };
 		C27950CE1907140500D3D8AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CD1907140500D3D8AF /* Foundation.framework */; };
 		C27950D01907140500D3D8AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CF1907140500D3D8AF /* CoreGraphics.framework */; };
@@ -48,6 +49,7 @@
 		C2DCFA261912F39700ABEAFD /* Hi5Card.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DCFA251912F39700ABEAFD /* Hi5Card.m */; };
 		C2DCFA291912F70800ABEAFD /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */; };
 		C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */; };
+		C2EEC2E8193FDE5700E96E92 /* Hi5BoardViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC2E7193FDE5700E96E92 /* Hi5BoardViewDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C211B32E1940E2C300F015B2 /* Hi5FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5FeedbackViewController.h; sourceTree = "<group>"; };
+		C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5FeedbackViewController.m; sourceTree = "<group>"; };
 		C2142F5F1907694B009F30D5 /* Hi5CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CardCell.h; sourceTree = "<group>"; };
 		C2142F601907694B009F30D5 /* Hi5CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CardCell.m; sourceTree = "<group>"; };
 		C27950CA1907140500D3D8AF /* Hi5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hi5.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +117,8 @@
 		C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		C2DDA2B3190A1433002156E5 /* Hi5CollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CollectionView.h; sourceTree = "<group>"; };
 		C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CollectionView.m; sourceTree = "<group>"; };
+		C2EEC2E6193FDE5700E96E92 /* Hi5BoardViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5BoardViewDataSource.h; sourceTree = "<group>"; };
+		C2EEC2E7193FDE5700E96E92 /* Hi5BoardViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5BoardViewDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +197,10 @@
 				C2DCFA251912F39700ABEAFD /* Hi5Card.m */,
 				C2DCFA271912F70800ABEAFD /* NSMutableArray+Shuffle.h */,
 				C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */,
+				C2EEC2E6193FDE5700E96E92 /* Hi5BoardViewDataSource.h */,
+				C2EEC2E7193FDE5700E96E92 /* Hi5BoardViewDataSource.m */,
+				C211B32E1940E2C300F015B2 /* Hi5FeedbackViewController.h */,
+				C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */,
 			);
 			path = Hi5;
 			sourceTree = "<group>";
@@ -374,10 +384,12 @@
 				C2DCFA231912C1FC00ABEAFD /* Hi5CardDeck.m in Sources */,
 				C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */,
 				C27950E41907140500D3D8AF /* Hi5MasterViewController.m in Sources */,
+				C2EEC2E8193FDE5700E96E92 /* Hi5BoardViewDataSource.m in Sources */,
 				C2DCFA261912F39700ABEAFD /* Hi5Card.m in Sources */,
 				C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */,
 				C2DCFA291912F70800ABEAFD /* NSMutableArray+Shuffle.m in Sources */,
 				C27950DA1907140500D3D8AF /* main.m in Sources */,
+				C211B3301940E2C300F015B2 /* Hi5FeedbackViewController.m in Sources */,
 				C2B609C2190AF643001DFB14 /* UILabel+nsobject.m in Sources */,
 				C27950DE1907140500D3D8AF /* Hi5AppDelegate.m in Sources */,
 			);

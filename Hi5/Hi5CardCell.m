@@ -74,7 +74,7 @@
 {
     self.isActive = YES;
     [self setCard:card];
-    if (card.rank == 0)
+    if (card.rank == kCardRankEmpty)
         [self.imageView setImage:nil];
     else
         [self.imageView setImage:card.image];

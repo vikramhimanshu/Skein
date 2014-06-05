@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 
 typedef enum : NSUInteger {
+    HiCardOneLess,
+    HiCardOneGreater,
+    HiCardSame,
+    HiCardEmpty
+} HiCardComparisonResult;
+
+typedef enum : NSUInteger {
     kCardSuit1 = 0,
     kCardSuit2 = 1,
     kCardSuit3 = 2,
@@ -17,11 +24,11 @@ typedef enum : NSUInteger {
 } Suit;
 
 typedef enum : NSUInteger {
-    kCardRank1 = 1,
+    kCardRankLowest = 1,
     kCardRank2 = 2,
     kCardRank3 = 3,
     kCardRank4 = 4,
-    kCardRank5 = 5,
+    kCardRankHighest = 5,
     kCardRankEmpty = 0
 } Rank;
 
@@ -34,5 +41,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIImage *image;
 
 -(Suit)suitForName:(NSString *)name;
+-(BOOL)isEmpty;
 
 @end

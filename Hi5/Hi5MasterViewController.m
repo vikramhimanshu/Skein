@@ -20,15 +20,15 @@
                                         Hi5CardCellDelegate,
                                         UIAlertViewDelegate>
 
-@property (nonatomic, strong) IBOutlet Hi5CollectionView *boardView;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet Hi5CollectionView *boardView;
+@property (weak, nonatomic) IBOutlet UILabel *totalTimeElapsedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movesLabel;
 
 @property (nonatomic, strong) NSMutableArray *cardArray;
 @property (nonatomic, strong) Hi5CardDeck *deck;
 @property (nonatomic, assign) NSUInteger numberOfMoves;
-@property (nonatomic, strong) NSDate *totalTimeInGame;
-
+@property (nonatomic, strong) NSDate *totalTimeSinceStartOfGame;
+@property (nonatomic, strong) NSTimer *totalTimeElapsedTimer;
 @end
 
 @implementation Hi5MasterViewController
@@ -56,6 +56,44 @@
     [self startNewGame];
 }
 
+-(void)startUpdatingTimeElapsedLabel
+{
+    self.totalTimeElapsedTimer =  [NSTimer timerWithTimeInterval:1
+                                                          target:self
+                                                        selector:@selector(timeElapsedFormatedString)
+                                                        userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.totalTimeElapsedTimer
+                              forMode:NSDefaultRunLoopMode];
+}
+
+-(void)stopUpdatingTimeElapsedLabel
+{
+    [self.totalTimeElapsedTimer invalidate];
+}
+
+- (NSString *)timeElapsedFormatedString
+{
+    if (self.totalTimeSinceStartOfGame == nil)
+        return nil;
+    
+    NSInteger time = [[NSDate date] timeIntervalSinceDate:self.totalTimeSinceStartOfGame];
+    NSString *timeleftStr = @"";
+    if (time<0)
+    {
+        timeleftStr = @"Ended";
+    }
+    else if (time>60)
+    {
+        timeleftStr = [NSString stringWithFormat:@"%lum %lus",(long)time/60,(long)time%60];
+    }
+    else
+    {
+        timeleftStr = [NSString stringWithFormat:@"%lus",(long)time];
+    }
+    self.totalTimeElapsedLabel.text = timeleftStr;
+    return timeleftStr;
+}
+
 - (NSMutableArray *)cardArray
 {
     if (_cardArray==nil) {
@@ -64,7 +102,7 @@
         for (int i =0; i<numRows; i++) {
             NSRange r = NSMakeRange(i*NUM_CARD_ROW, NUM_CARD_ROW);
             NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:r];
-            __autoreleasing NSArray *s1 = [NSArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
+            __autoreleasing NSMutableArray *s1 = [NSMutableArray arrayWithArray:[[self.deck deck] objectsAtIndexes:is]];
             [_cardArray addObject:s1];
         }
     }
@@ -73,6 +111,10 @@
 
 - (IBAction)startNewGame
 {
+    self.movesLabel.text = @"0";
+    self.totalTimeElapsedLabel.text = @"0s";
+    self.numberOfMoves = 0;
+    self.totalTimeSinceStartOfGame = nil;
     _cardArray.count>0?[self.cardArray removeAllObjects]:nil;
     self.cardArray = nil;
     [self.boardView resetEmptyCells];
@@ -111,7 +153,7 @@
     
     Hi5Card *c = [[self.cardArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.item];
     [cell populateWithCard:c];
-    if (c.rank == 0) {
+    if (c.rank == kCardRankEmpty) {
         [self.boardView addEmptyCells:cell];
     }
     if (indexPath.section==3&&indexPath.item==5) {
@@ -122,6 +164,7 @@
 
 -(void)didGameEndWithSuccess:(BOOL)success
 {
+    [self stopUpdatingTimeElapsedLabel];
     if (success) {
         [[self alertWithTitle:@"Yayyy" andMessage:@"Play Again? :D"] setTag:1];
     }else
@@ -130,7 +173,7 @@
 
 -(BOOL)shouldDragCell:(Hi5CardCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    return ([cell.card rank] != 0);
+    return (cell.card.rank != kCardRankEmpty);
 }
 
 -(void)willSwapCellAtIndexPath:(NSIndexPath *)sourceIndexpath withCellAtIndexPath:(NSIndexPath *)targetIndexpath
@@ -142,6 +185,11 @@
 -(void)swapCellAtIndexPath:(NSIndexPath *)sourceIndexpath
        withCellAtIndexPath:(NSIndexPath *)targetIndexpath
 {
+    if(self.totalTimeSinceStartOfGame==nil) {
+        self.totalTimeSinceStartOfGame = [NSDate date];
+        [self startUpdatingTimeElapsedLabel];
+    }
+    
     Hi5CardCell *targetCell = (Hi5CardCell *)[self.boardView
                                               cellForItemAtIndexPath:targetIndexpath];
     [targetCell showBorder:NO];
@@ -150,11 +198,16 @@
                                 toIndexPath:targetIndexpath];
         [self.boardView moveItemAtIndexPath:targetIndexpath
                                 toIndexPath:sourceIndexpath];
-//        [self.cardArray exchangeObjectAtIndex:sourceIndexpath.item withObjectAtIndex:targetIndexpath.item];
+        Hi5Card *source = [[self.cardArray objectAtIndex:sourceIndexpath.section] objectAtIndex:sourceIndexpath.item];
+        Hi5Card *target = [[self.cardArray objectAtIndex:targetIndexpath.section] objectAtIndex:targetIndexpath.item];
+        [[self.cardArray objectAtIndex:sourceIndexpath.section] setObject:target atIndex:sourceIndexpath.item];
+        [[self.cardArray objectAtIndex:targetIndexpath.section] setObject:source atIndex:targetIndexpath.item];
     } completion:^(BOOL finished) {
         [targetCell showBorder:YES];
         [self.boardView adjustEmptyCells];
         [self.boardView checkForGameCompletion];
+        self.numberOfMoves++;
+        self.movesLabel.text = [NSString stringWithFormat:@"%ld",(unsigned long)self.numberOfMoves];
     }];
 }
 
@@ -164,13 +217,13 @@
     Hi5CardCell *sourceCell = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:sourceIndexpath];
     Hi5CardCell *targetCell = (Hi5CardCell *)[self.boardView cellForItemAtIndexPath:targetIndexpath];
 	//Checking if the selected card is valid. i.e. not empty card
-	if([sourceCell.card rank] != 0)
+	if(sourceCell.card.rank != kCardRankEmpty)
 	{
 		//Checking if the target card is valid. i.e. an empty card
-		if([targetCell.card rank] == 0)
+		if(targetCell.card.rank == kCardRankEmpty)
 		{
 			//Checking if the selected card is an Ace card;
-			if([sourceCell.card rank] == 1)
+			if(sourceCell.card.rank == kCardRankLowest)
 			{
 				//Ace can only be placed in the first element of any row
 				if(targetIndexpath.item == 0)
@@ -195,14 +248,17 @@
 					
 					if(sourceCell.card.suit == leftCard.card.suit)
 					{
-						if([sourceCell.card rank]-1 == [leftCard.card rank])
+                        if (leftCard.card.rank == kCardRankEmpty) {
+                            [self didFailToSwapCardsWithError:@"For a valid move the left cell should have a card of the same suit and a higher rank"];
+                        }
+						else if(sourceCell.card.rank-1 == leftCard.card.rank)
 						{
 							[self swapCellAtIndexPath:sourceIndexpath
                                   withCellAtIndexPath:targetIndexpath];
 						}
 						else
 						{
-							[self didFailToSwapCardsWithError:@"The left card value should be one more than the selected card"];
+							[self didFailToSwapCardsWithError:@"The left card rank should be one more than the selected card"];
 						}
 					}
 					else
@@ -217,11 +273,7 @@
 			[self didFailToSwapCardsWithError:@"you can put the card only in an empty location"];
 		}
 	}
-	else
-	{
-		[self didFailToSwapCardsWithError:@"please select a valid card"];
-	}
-}
+    }
 
 -(void)didFailToSwapCardsWithError:(NSString *)error
 {

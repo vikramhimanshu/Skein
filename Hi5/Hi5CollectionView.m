@@ -82,7 +82,7 @@
     {
         Hi5CardCell *c = [arr objectAtIndex:i];
         Hi5CardCell *lc = [self setLeftCardActive:c];
-        if (lc.card.rank == 5)
+        if (lc.card.rank == kCardRankHighest)
         {
             count++;
             [self setRightCardActiveStateTo:NO forCard:c];
@@ -101,7 +101,7 @@
 {
     [c setIsActive:yes];
     Hi5CardCell *rc = [self cardOnRightOfCard:c];
-    if (rc != nil && rc.card.rank == 0) {
+    if (rc != nil && rc.card.rank == kCardRankEmpty) {
         [self setRightCardActiveStateTo:yes forCard:rc];
     }
 }

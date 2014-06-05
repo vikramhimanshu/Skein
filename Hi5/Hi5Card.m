@@ -53,6 +53,19 @@
     }
     return kCardSuitEmpty;
 }
+-(BOOL)isEmpty
+{
+    return self.rank==kCardRankEmpty;
+}
+- (NSComparisonResult)cardRankCompare:(Hi5Card *)card
+{
+    if (self.rank<card.rank) {
+        return NSOrderedAscending;
+    } else if (self.rank>card.rank) {
+        return NSOrderedDescending;
+    }
+    return NSOrderedSame;
+}
 
 - (NSString *)description
 {
