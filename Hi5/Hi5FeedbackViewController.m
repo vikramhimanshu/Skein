@@ -8,42 +8,100 @@
 
 #import "Hi5FeedbackViewController.h"
 
-@interface Hi5FeedbackViewController ()
+@interface Hi5FeedbackViewController () <UIWebViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIWebView *webview;
+@property (assign, nonatomic) BOOL isFormSubmitted;
+@property (strong, nonatomic) UIActivityIndicatorView *loader;
 
 @end
 
 @implementation Hi5FeedbackViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self loadPageAtPath:self.urlToLoad];
+    self.isFormSubmitted = NO;
+    self.loader = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.loader setHidesWhenStopped:YES];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.loader];
 }
 
-- (void)didReceiveMemoryWarning
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.navigationController.navigationBarHidden = NO;
+    self.title = self.viewTitle;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)viewWillDisappear:(BOOL)animated
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    self.navigationController.navigationBarHidden = YES;
+    self.title = @"";
 }
-*/
+
+-(void)loadHTMLAtPath:(NSString *)urlString
+{
+    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]];
+    NSLog(@"%@",[NSString stringWithUTF8String:[htmlData bytes]]);
+    [self.webview loadData:htmlData
+                  MIMEType:@"html"
+          textEncodingName:@"utf-8"
+                   baseURL:nil];
+}
+
+-(void)loadPageAtPath:(NSString *)urlString
+{
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [self.webview loadRequest:urlRequest];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 1:
+            [self loadPageAtPath:self.urlToLoad];
+            break;
+            
+        default:
+            
+            break;
+    }
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self.loader stopAnimating];
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Load Error"
+                                                    message:error.localizedDescription
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Ok", nil];
+    [errorAlert show];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType==UIWebViewNavigationTypeLinkClicked) {
+        return NO;
+    }
+    self.isFormSubmitted = (navigationType == UIWebViewNavigationTypeFormSubmitted);
+    return YES;
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self.loader startAnimating];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.loader stopAnimating];
+    if (self.isFormSubmitted) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 @end

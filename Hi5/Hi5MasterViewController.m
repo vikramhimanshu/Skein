@@ -7,6 +7,7 @@
 //
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "Hi5FeedbackViewController.h"
 #import "Hi5MasterViewController.h"
 #import "Hi5CollectionView.h"
 #import "Hi5CardCell.h"
@@ -29,6 +30,8 @@
 @property (nonatomic, assign) NSUInteger numberOfMoves;
 @property (nonatomic, strong) NSDate *totalTimeSinceStartOfGame;
 @property (nonatomic, strong) NSTimer *totalTimeElapsedTimer;
+@property (nonatomic, assign) BOOL isFeedbackShort;
+
 @end
 
 @implementation Hi5MasterViewController
@@ -54,6 +57,11 @@
     [self.boardView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"empty+0.jpg"]]];
     
     [self startNewGame];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.isFeedbackShort = NO;
 }
 
 -(void)startUpdatingTimeElapsedLabel
@@ -126,8 +134,20 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag==1 && buttonIndex == [alertView cancelButtonIndex]) {
-        [self startNewGame];
+    switch (alertView.tag) {
+        case 1:
+            if (buttonIndex == [alertView cancelButtonIndex]) {
+                [self startNewGame];
+            }
+            else if (buttonIndex == 1) {
+                [self performSegueWithIdentifier:@"FEEDBACK_LONG" sender:nil];
+                [self startNewGame];
+            }
+            break;
+            
+        default:
+            
+            break;
     }
 }
 
@@ -165,10 +185,11 @@
 -(void)didGameEndWithSuccess:(BOOL)success
 {
     [self stopUpdatingTimeElapsedLabel];
+    self.isFeedbackShort = YES;
     if (success) {
-        [[self alertWithTitle:@"Yayyy" andMessage:@"Play Again? :D"] setTag:1];
+        [[self alertWithFeedbackLinkAndTitle:@"Yayyy!! Play Again? :D"] setTag:1];
     }else
-        [[self alertWithTitle:@"Meh, Never Mind!!" andMessage:@"Try Again! :)"] setTag:1];
+        [[self alertWithFeedbackLinkAndTitle:@"Meh, Never Mind!! Try Again?"] setTag:1];
 }
 
 -(BOOL)shouldDragCell:(Hi5CardCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -281,6 +302,17 @@
 	[self alertWithTitle:@"Invalid Move" andMessage:error];
 }
 
+-(UIAlertView *)alertWithFeedbackLinkAndTitle:(NSString *)title
+{
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:@""
+												   delegate:self
+										  cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:@"Feedback",nil];
+	[alert show];
+    return alert;
+}
+
 -(UIAlertView *)alertWithTitle:(NSString *)title andMessage:(NSString *)message
 {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
@@ -290,5 +322,24 @@
 	[alert show];
     return alert;
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"FEEDBACK_LONG"]) {
+        Hi5FeedbackViewController * destVC = (Hi5FeedbackViewController *)[segue destinationViewController];
+        [destVC setViewTitle:@"Feedback & Comments"];
+        if (_isFeedbackShort) {
+            [destVC setUrlToLoad:FEEDBACK_SHORT];
+        } else {
+            [destVC setUrlToLoad:FEEDBACK_LONG];
+        }
+    } else if ([segue.identifier isEqualToString:@"GAME_RULES"]) {
+        Hi5FeedbackViewController * destVC = (Hi5FeedbackViewController *)[segue destinationViewController];
+        [destVC setViewTitle:@"Rules"];
+        [destVC setUrlToLoad:GAME_RULES_1];
+    }
+}
+
 
 @end

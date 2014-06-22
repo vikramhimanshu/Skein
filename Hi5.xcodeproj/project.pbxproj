@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C211B3301940E2C300F015B2 /* Hi5FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */; };
 		C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2142F601907694B009F30D5 /* Hi5CardCell.m */; };
+		C2288BC61956BA460053E380 /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = C2288BC41956BA460053E380 /* Default-PortraitUpsideDown.png */; };
+		C2288BC71956BA460053E380 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C2288BC51956BA460053E380 /* Default.png */; };
 		C27950CE1907140500D3D8AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CD1907140500D3D8AF /* Foundation.framework */; };
 		C27950D01907140500D3D8AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CF1907140500D3D8AF /* CoreGraphics.framework */; };
 		C27950D21907140500D3D8AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950D11907140500D3D8AF /* UIKit.framework */; };
@@ -23,6 +25,8 @@
 		C27950F21907140500D3D8AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950D11907140500D3D8AF /* UIKit.framework */; };
 		C27950FA1907140500D3D8AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C27950F81907140500D3D8AF /* InfoPlist.strings */; };
 		C27950FC1907140500D3D8AF /* Hi5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C27950FB1907140500D3D8AF /* Hi5Tests.m */; };
+		C28113AF195765D4001AA820 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28113AE195765D4001AA820 /* Default-568h@2x.png */; };
+		C2A86490194FE3360092FD2E /* _icon_feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A8648F194FE3360092FD2E /* _icon_feedback.png */; };
 		C2B609C2190AF643001DFB14 /* UILabel+nsobject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */; };
 		C2B609D8190B1372001DFB14 /* clubs+1.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609C3190B1372001DFB14 /* clubs+1.png */; };
 		C2B609D9190B1372001DFB14 /* clubs+2.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609C4190B1372001DFB14 /* clubs+2.png */; };
@@ -50,6 +54,7 @@
 		C2DCFA291912F70800ABEAFD /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DCFA281912F70800ABEAFD /* NSMutableArray+Shuffle.m */; };
 		C2DDA2B5190A1433002156E5 /* Hi5CollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */; };
 		C2EEC2E8193FDE5700E96E92 /* Hi5BoardViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EEC2E7193FDE5700E96E92 /* Hi5BoardViewDataSource.m */; };
+		F09D7AEA915C4CD98C5C18F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7894C9C90B1483EAE741E0B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +72,8 @@
 		C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5FeedbackViewController.m; sourceTree = "<group>"; };
 		C2142F5F1907694B009F30D5 /* Hi5CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CardCell.h; sourceTree = "<group>"; };
 		C2142F601907694B009F30D5 /* Hi5CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CardCell.m; sourceTree = "<group>"; };
+		C2288BC41956BA460053E380 /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-PortraitUpsideDown.png"; path = "Images.xcassets/LaunchImage.launchimage/Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
+		C2288BC51956BA460053E380 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images.xcassets/LaunchImage.launchimage/Default.png; sourceTree = "<group>"; };
 		C27950CA1907140500D3D8AF /* Hi5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hi5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27950CD1907140500D3D8AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C27950CF1907140500D3D8AF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -86,6 +93,8 @@
 		C27950F71907140500D3D8AF /* Hi5Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hi5Tests-Info.plist"; sourceTree = "<group>"; };
 		C27950F91907140500D3D8AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C27950FB1907140500D3D8AF /* Hi5Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hi5Tests.m; sourceTree = "<group>"; };
+		C28113AE195765D4001AA820 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C2A8648F194FE3360092FD2E /* _icon_feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = _icon_feedback.png; sourceTree = "<group>"; };
 		C2B609C0190AF643001DFB14 /* UILabel+nsobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+nsobject.h"; sourceTree = "<group>"; };
 		C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+nsobject.m"; sourceTree = "<group>"; };
 		C2B609C3190B1372001DFB14 /* clubs+1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clubs+1.png"; sourceTree = "<group>"; };
@@ -119,6 +128,8 @@
 		C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CollectionView.m; sourceTree = "<group>"; };
 		C2EEC2E6193FDE5700E96E92 /* Hi5BoardViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5BoardViewDataSource.h; sourceTree = "<group>"; };
 		C2EEC2E7193FDE5700E96E92 /* Hi5BoardViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5BoardViewDataSource.m; sourceTree = "<group>"; };
+		F6EC1DC2C4DF4D0ABD9DCF95 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F7894C9C90B1483EAE741E0B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +140,7 @@
 				C27950D01907140500D3D8AF /* CoreGraphics.framework in Frameworks */,
 				C27950D21907140500D3D8AF /* UIKit.framework in Frameworks */,
 				C27950CE1907140500D3D8AF /* Foundation.framework in Frameworks */,
+				F09D7AEA915C4CD98C5C18F1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +164,7 @@
 				C27950F51907140500D3D8AF /* Hi5Tests */,
 				C27950CC1907140500D3D8AF /* Frameworks */,
 				C27950CB1907140500D3D8AF /* Products */,
+				F6EC1DC2C4DF4D0ABD9DCF95 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +184,7 @@
 				C27950CF1907140500D3D8AF /* CoreGraphics.framework */,
 				C27950D11907140500D3D8AF /* UIKit.framework */,
 				C27950EF1907140500D3D8AF /* XCTest.framework */,
+				F7894C9C90B1483EAE741E0B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -179,9 +193,9 @@
 			isa = PBXGroup;
 			children = (
 				C27950DC1907140500D3D8AF /* Hi5AppDelegate.h */,
+				C27950DD1907140500D3D8AF /* Hi5AppDelegate.m */,
 				C2DDA2B3190A1433002156E5 /* Hi5CollectionView.h */,
 				C2DDA2B4190A1433002156E5 /* Hi5CollectionView.m */,
-				C27950DD1907140500D3D8AF /* Hi5AppDelegate.m */,
 				C27950DF1907140500D3D8AF /* Main.storyboard */,
 				C27950E21907140500D3D8AF /* Hi5MasterViewController.h */,
 				C27950E31907140500D3D8AF /* Hi5MasterViewController.m */,
@@ -208,6 +222,10 @@
 		C27950D41907140500D3D8AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C28113AE195765D4001AA820 /* Default-568h@2x.png */,
+				C2288BC41956BA460053E380 /* Default-PortraitUpsideDown.png */,
+				C2288BC51956BA460053E380 /* Default.png */,
+				C2A8648F194FE3360092FD2E /* _icon_feedback.png */,
 				C2B609ED190B1388001DFB14 /* cards */,
 				C27950D51907140500D3D8AF /* Hi5-Info.plist */,
 				C27950D61907140500D3D8AF /* InfoPlist.strings */,
@@ -270,9 +288,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C27950FF1907140500D3D8AF /* Build configuration list for PBXNativeTarget "Hi5" */;
 			buildPhases = (
+				ED09ABBB1C08462DA2D317CB /* Check Pods Manifest.lock */,
 				C27950C61907140500D3D8AF /* Sources */,
 				C27950C71907140500D3D8AF /* Frameworks */,
 				C27950C81907140500D3D8AF /* Resources */,
+				179C3B9B921547D88CD506C7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -339,6 +359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C28113AF195765D4001AA820 /* Default-568h@2x.png in Resources */,
 				C2B609DB190B1372001DFB14 /* clubs+4.png in Resources */,
 				C27950E91907140500D3D8AF /* Images.xcassets in Resources */,
 				C2B609E9190B1372001DFB14 /* spades+2.png in Resources */,
@@ -347,11 +368,14 @@
 				C2B609E4190B1372001DFB14 /* hearts+2.png in Resources */,
 				C2B609E0190B1372001DFB14 /* diamonds+4.png in Resources */,
 				C2B609E5190B1372001DFB14 /* hearts+3.png in Resources */,
+				C2288BC61956BA460053E380 /* Default-PortraitUpsideDown.png in Resources */,
 				C27950E11907140500D3D8AF /* Main.storyboard in Resources */,
+				C2288BC71956BA460053E380 /* Default.png in Resources */,
 				C2B609D8190B1372001DFB14 /* clubs+1.png in Resources */,
 				C2B609DE190B1372001DFB14 /* diamonds+2.png in Resources */,
 				C2B609DF190B1372001DFB14 /* diamonds+3.png in Resources */,
 				C2B609E1190B1372001DFB14 /* diamonds+5.png in Resources */,
+				C2A86490194FE3360092FD2E /* _icon_feedback.png in Resources */,
 				C2B609D9190B1372001DFB14 /* clubs+2.png in Resources */,
 				C2B609E2190B1372001DFB14 /* empty+0.jpg in Resources */,
 				C2B609DD190B1372001DFB14 /* diamonds+1.png in Resources */,
@@ -375,6 +399,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		179C3B9B921547D88CD506C7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED09ABBB1C08462DA2D317CB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C27950C61907140500D3D8AF /* Sources */ = {
@@ -473,7 +530,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -505,7 +562,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -513,9 +570,9 @@
 		};
 		C27951001907140500D3D8AF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6EC1DC2C4DF4D0ABD9DCF95 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hi5/Hi5-Prefix.pch";
 				INFOPLIST_FILE = "Hi5/Hi5-Info.plist";
@@ -527,9 +584,9 @@
 		};
 		C27951011907140500D3D8AF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6EC1DC2C4DF4D0ABD9DCF95 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hi5/Hi5-Prefix.pch";
 				INFOPLIST_FILE = "Hi5/Hi5-Info.plist";
