@@ -1,0 +1,10 @@
+PODS:
+  - PBWebViewController (0.2)
+
+DEPENDENCIES:
+  - PBWebViewController
+
+SPEC CHECKSUMS:
+  PBWebViewController: 4ce33129c0f0adfce9cec105be4d48c7c9b70026
+
+COCOAPODS: 0.33.1

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		C211B3301940E2C300F015B2 /* Hi5FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */; };
 		C2142F611907694B009F30D5 /* Hi5CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2142F601907694B009F30D5 /* Hi5CardCell.m */; };
-		C2288BC61956BA460053E380 /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = C2288BC41956BA460053E380 /* Default-PortraitUpsideDown.png */; };
-		C2288BC71956BA460053E380 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C2288BC51956BA460053E380 /* Default.png */; };
 		C27950CE1907140500D3D8AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CD1907140500D3D8AF /* Foundation.framework */; };
 		C27950D01907140500D3D8AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950CF1907140500D3D8AF /* CoreGraphics.framework */; };
 		C27950D21907140500D3D8AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27950D11907140500D3D8AF /* UIKit.framework */; };
@@ -26,6 +24,9 @@
 		C27950FA1907140500D3D8AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C27950F81907140500D3D8AF /* InfoPlist.strings */; };
 		C27950FC1907140500D3D8AF /* Hi5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C27950FB1907140500D3D8AF /* Hi5Tests.m */; };
 		C28113AF195765D4001AA820 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28113AE195765D4001AA820 /* Default-568h@2x.png */; };
+		C28113B81957A4BF001AA820 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C28113B61957A4BF001AA820 /* Default.png */; };
+		C28113B91957A4BF001AA820 /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = C28113B71957A4BF001AA820 /* Default-PortraitUpsideDown.png */; };
+		C2836CE919E1F6F40025BA1E /* hint_next.png in Resources */ = {isa = PBXBuildFile; fileRef = C2836CE819E1F6F40025BA1E /* hint_next.png */; };
 		C2A86490194FE3360092FD2E /* _icon_feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A8648F194FE3360092FD2E /* _icon_feedback.png */; };
 		C2B609C2190AF643001DFB14 /* UILabel+nsobject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */; };
 		C2B609D8190B1372001DFB14 /* clubs+1.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B609C3190B1372001DFB14 /* clubs+1.png */; };
@@ -72,8 +73,6 @@
 		C211B32F1940E2C300F015B2 /* Hi5FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5FeedbackViewController.m; sourceTree = "<group>"; };
 		C2142F5F1907694B009F30D5 /* Hi5CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hi5CardCell.h; sourceTree = "<group>"; };
 		C2142F601907694B009F30D5 /* Hi5CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hi5CardCell.m; sourceTree = "<group>"; };
-		C2288BC41956BA460053E380 /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-PortraitUpsideDown.png"; path = "Images.xcassets/LaunchImage.launchimage/Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
-		C2288BC51956BA460053E380 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images.xcassets/LaunchImage.launchimage/Default.png; sourceTree = "<group>"; };
 		C27950CA1907140500D3D8AF /* Hi5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hi5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27950CD1907140500D3D8AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C27950CF1907140500D3D8AF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -94,6 +93,9 @@
 		C27950F91907140500D3D8AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C27950FB1907140500D3D8AF /* Hi5Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hi5Tests.m; sourceTree = "<group>"; };
 		C28113AE195765D4001AA820 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C28113B61957A4BF001AA820 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C28113B71957A4BF001AA820 /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
+		C2836CE819E1F6F40025BA1E /* hint_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hint_next.png; sourceTree = "<group>"; };
 		C2A8648F194FE3360092FD2E /* _icon_feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = _icon_feedback.png; sourceTree = "<group>"; };
 		C2B609C0190AF643001DFB14 /* UILabel+nsobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+nsobject.h"; sourceTree = "<group>"; };
 		C2B609C1190AF643001DFB14 /* UILabel+nsobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+nsobject.m"; sourceTree = "<group>"; };
@@ -222,9 +224,10 @@
 		C27950D41907140500D3D8AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C2836CE819E1F6F40025BA1E /* hint_next.png */,
+				C28113B61957A4BF001AA820 /* Default.png */,
+				C28113B71957A4BF001AA820 /* Default-PortraitUpsideDown.png */,
 				C28113AE195765D4001AA820 /* Default-568h@2x.png */,
-				C2288BC41956BA460053E380 /* Default-PortraitUpsideDown.png */,
-				C2288BC51956BA460053E380 /* Default.png */,
 				C2A8648F194FE3360092FD2E /* _icon_feedback.png */,
 				C2B609ED190B1388001DFB14 /* cards */,
 				C27950D51907140500D3D8AF /* Hi5-Info.plist */,
@@ -330,6 +333,9 @@
 				CLASSPREFIX = Hi5;
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
+					C27950C91907140500D3D8AF = {
+						DevelopmentTeam = S48Q756DQX;
+					};
 					C27950ED1907140500D3D8AF = {
 						TestTargetID = C27950C91907140500D3D8AF;
 					};
@@ -364,16 +370,17 @@
 				C27950E91907140500D3D8AF /* Images.xcassets in Resources */,
 				C2B609E9190B1372001DFB14 /* spades+2.png in Resources */,
 				C2B609EB190B1372001DFB14 /* spades+4.png in Resources */,
+				C28113B91957A4BF001AA820 /* Default-PortraitUpsideDown.png in Resources */,
 				C27950D81907140500D3D8AF /* InfoPlist.strings in Resources */,
 				C2B609E4190B1372001DFB14 /* hearts+2.png in Resources */,
 				C2B609E0190B1372001DFB14 /* diamonds+4.png in Resources */,
+				C28113B81957A4BF001AA820 /* Default.png in Resources */,
 				C2B609E5190B1372001DFB14 /* hearts+3.png in Resources */,
-				C2288BC61956BA460053E380 /* Default-PortraitUpsideDown.png in Resources */,
 				C27950E11907140500D3D8AF /* Main.storyboard in Resources */,
-				C2288BC71956BA460053E380 /* Default.png in Resources */,
 				C2B609D8190B1372001DFB14 /* clubs+1.png in Resources */,
 				C2B609DE190B1372001DFB14 /* diamonds+2.png in Resources */,
 				C2B609DF190B1372001DFB14 /* diamonds+3.png in Resources */,
+				C2836CE919E1F6F40025BA1E /* hint_next.png in Resources */,
 				C2B609E1190B1372001DFB14 /* diamonds+5.png in Resources */,
 				C2A86490194FE3360092FD2E /* _icon_feedback.png in Resources */,
 				C2B609D9190B1372001DFB14 /* clubs+2.png in Resources */,
@@ -514,7 +521,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Himanshu Tantia (S48Q756DQX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Himanshu Tantia (S48Q756DQX)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -532,6 +540,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "23047384-188D-4D0B-9E10-F9332A8F1384";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -552,7 +561,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Himanshu Tantia (S48Q756DQX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Himanshu Tantia (S48Q756DQX)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -563,6 +573,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "23047384-188D-4D0B-9E10-F9332A8F1384";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -573,11 +584,14 @@
 			baseConfigurationReference = F6EC1DC2C4DF4D0ABD9DCF95 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hi5/Hi5-Prefix.pch";
 				INFOPLIST_FILE = "Hi5/Hi5-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -587,11 +601,14 @@
 			baseConfigurationReference = F6EC1DC2C4DF4D0ABD9DCF95 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hi5/Hi5-Prefix.pch";
 				INFOPLIST_FILE = "Hi5/Hi5-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

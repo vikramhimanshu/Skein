@@ -19,12 +19,16 @@
 @interface Hi5MasterViewController ()  <UICollectionViewDataSource,
                                         Hi5CollectionViewDelegate,
                                         Hi5CardCellDelegate,
-                                        UIAlertViewDelegate>
+                                        UIAlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet Hi5CollectionView *boardView;
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeElapsedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movesLabel;
-
+@property (weak, nonatomic) IBOutlet UIView *menuView;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *menuGestureRecognizer;
+@property (nonatomic) CGPoint originalCenter;
+@property (nonatomic) BOOL isValidSwipe;
+@property (nonatomic) BOOL isSwipeDirectionLeft;
 @property (nonatomic, strong) NSMutableArray *cardArray;
 @property (nonatomic, strong) Hi5CardDeck *deck;
 @property (nonatomic, assign) NSUInteger numberOfMoves;
@@ -61,6 +65,14 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    CGFloat offset = 20;
+    if (CGRectGetWidth([UIScreen mainScreen].bounds) >= 568) {
+        offset = CGRectGetWidth(self.menuView.bounds);
+    }
+    CGRect f = self.menuView.frame;
+    f.origin.x = CGRectGetWidth(self.view.bounds)-offset;
+    self.menuView.frame = f;
+
     self.isFeedbackShort = NO;
 }
 
@@ -128,6 +140,50 @@
     [self.boardView resetEmptyCells];
     [self.deck shuffle];
     [self.boardView reloadData];
+}
+
+- (IBAction)processPanGesture:(UIPanGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.originalCenter = self.menuView.center;
+    }
+    
+    else if (recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint translation = [recognizer translationInView:self.view];
+        self.menuView.center = CGPointMake(_originalCenter.x + translation.x, _originalCenter.y);
+        
+        CGFloat displacement = 0;
+        if (translation.x<0 /*left swipe*/) {
+            displacement = translation.x *-1;
+            _isSwipeDirectionLeft = YES;
+            _isValidSwipe = (displacement>=CGRectGetWidth(self.menuView.bounds)*1/3);
+        } else /*right swipe*/ {
+            displacement = translation.x;
+            _isSwipeDirectionLeft = NO;
+            _isValidSwipe = (displacement>=CGRectGetWidth(self.menuView.bounds)*1/2);
+        }
+    }
+    
+    else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        CGFloat offset = 20;
+        if (_isValidSwipe && _isSwipeDirectionLeft) {
+            offset = CGRectGetWidth(self.menuView.bounds);
+        }
+        CGRect originalFrame = CGRectMake(CGRectGetWidth(self.view.bounds)-offset,
+                                          self.menuView.frame.origin.y,
+                                          CGRectGetWidth(self.menuView.bounds),
+                                          CGRectGetHeight(self.menuView.bounds));
+        [UIView animateWithDuration:0.2 animations:^{
+            self.menuView.frame = originalFrame;
+        } completion:^(BOOL finished) {
+            if (_isValidSwipe) {
+//                [self.delegate didSwipeOnCell:self
+//                   withSwipeGestureRecognizer:recognizer];
+            }
+        }];
+    }
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -269,10 +325,7 @@
 					
 					if(sourceCell.card.suit == leftCard.card.suit)
 					{
-                        if (leftCard.card.rank == kCardRankEmpty) {
-                            [self didFailToSwapCardsWithError:@"For a valid move the left cell should have a card of the same suit and a higher rank"];
-                        }
-						else if(sourceCell.card.rank-1 == leftCard.card.rank)
+                        if(sourceCell.card.rank-1 == leftCard.card.rank)
 						{
 							[self swapCellAtIndexPath:sourceIndexpath
                                   withCellAtIndexPath:targetIndexpath];
